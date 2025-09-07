@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { db, auth } from '../../../../lib/firebase';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { doc, setDoc, updateDoc, addDoc, collection, query, where, getDocs, serverTimestamp } from 'firebase/firestore';
+import { adminDb } from '../../../../lib/firebase-admin';
+import { getAuth } from 'firebase-admin/auth';
+import { FieldValue } from 'firebase-admin/firestore';
 import { TeamInvitation, TeamMember } from '../../../../types/team';
 
 interface AcceptInvitationRequest {
@@ -30,15 +30,12 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // 1. Find and validate the invitation
-    const invitationsRef = collection(db, 'teamInvitations');
-    const q = query(
-      invitationsRef,
-      where('token', '==', token),
-      where('status', '==', 'pending')
-    );
-    
-    const querySnapshot = await getDocs(q);
+    // 1. Find and validate the invitation using Admin SDK
+    const invitationsRef = adminDb.collection('teamInvitations');
+    const querySnapshot = await invitationsRef
+      .where('token', '==', token)
+      .where('status', '==', 'pending')
+      .get();
     
     if (querySnapshot.empty) {
       return NextResponse.json(
@@ -72,13 +69,14 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // 2. Create Firebase Auth user
-    const userCredential = await createUserWithEmailAndPassword(
-      auth, 
-      invitation.inviteEmail, 
-      password
-    );
-    const user = userCredential.user;
+    // 2. Create Firebase Auth user using Admin SDK
+    const adminAuth = getAuth();
+    const user = await adminAuth.createUser({
+      email: invitation.inviteEmail,
+      password: password,
+      displayName: displayName || '',
+      emailVerified: false,
+    });
 
     // 3. Create team member document
     const teamMember: Omit<TeamMember, 'id'> = {
@@ -96,27 +94,27 @@ export async function POST(request: NextRequest) {
       permissions: getDefaultPermissions(invitation.role)
     };
 
-    const teamMemberDoc = await addDoc(collection(db, 'teamMembers'), {
+    const teamMemberDoc = await adminDb.collection('teamMembers').add({
       ...teamMember,
-      joinedAt: serverTimestamp(),
-      lastActiveAt: serverTimestamp(),
+      joinedAt: FieldValue.serverTimestamp(),
+      lastActiveAt: FieldValue.serverTimestamp(),
     });
 
     // 4. Update invitation status
-    await updateDoc(doc(db, 'teamInvitations', invitation.id!), {
+    await adminDb.collection('teamInvitations').doc(invitation.id!).update({
       status: 'accepted',
-      acceptedAt: serverTimestamp(),
+      acceptedAt: FieldValue.serverTimestamp(),
     });
 
     // 5. Create user profile (optional)
-    await setDoc(doc(db, 'users', user.uid), {
+    await adminDb.collection('users').doc(user.uid).set({
       email: user.email,
       displayName: displayName,
       isTeamMember: true,
       accountHolderId: invitation.accountHolderId,
       businessId: invitation.businessId,
-      createdAt: serverTimestamp(),
-      updatedAt: serverTimestamp(),
+      createdAt: FieldValue.serverTimestamp(),
+      updatedAt: FieldValue.serverTimestamp(),
     });
 
     return NextResponse.json({

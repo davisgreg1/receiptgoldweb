@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { db } from '../../../../lib/firebase';
-import { collection, query, where, getDocs } from 'firebase/firestore';
+import { adminDb } from '../../../../lib/firebase-admin';
 import { TeamInvitation } from '../../../../types/team';
 
 export async function GET(request: NextRequest) {
@@ -15,15 +14,12 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    // Query Firestore for the invitation
-    const invitationsRef = collection(db, 'teamInvitations');
-    const q = query(
-      invitationsRef,
-      where('token', '==', token),
-      where('status', '==', 'pending')
-    );
-    
-    const querySnapshot = await getDocs(q);
+    // Query Firestore for the invitation using Admin SDK
+    const invitationsRef = adminDb.collection('teamInvitations');
+    const querySnapshot = await invitationsRef
+      .where('token', '==', token)
+      .where('status', '==', 'pending')
+      .get();
     
     if (querySnapshot.empty) {
       return NextResponse.json(
