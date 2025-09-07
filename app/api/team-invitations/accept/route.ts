@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { db, auth } from '../../../../lib/firebase';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { doc, setDoc, updateDoc, addDoc, collection, query, where, getDocs, serverTimestamp } from 'firebase/firestore';
-import { TeamInvitation, TeamMember, TeamMemberRole } from '../../../../types/team';
+import { TeamInvitation, TeamMember } from '../../../../types/team';
 
 interface AcceptInvitationRequest {
   token: string;

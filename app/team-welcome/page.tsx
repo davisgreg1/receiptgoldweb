@@ -70,7 +70,7 @@ export default function TeamWelcomePage() {
             className="text-xl mb-8"
             style={{ color: theme.text.secondary }}
           >
-            You've successfully joined the ReceiptGold team. Start tracking your business expenses right away!
+            You&apos;ve successfully joined the ReceiptGold team. Start tracking your business expenses right away!
           </p>
         </motion.div>
 
@@ -94,7 +94,7 @@ export default function TeamWelcomePage() {
               className="text-2xl font-bold"
               style={{ color: theme.text.primary }}
             >
-              What's Next?
+              What&apos;s Next?
             </h2>
           </div>
 

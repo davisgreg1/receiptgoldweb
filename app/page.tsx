@@ -352,7 +352,7 @@ export default function Home() {
                 className="text-xl sm:text-2xl font-bold mb-4"
                 style={{ color: theme.text.primary }}
               >
-                It's That Simple!
+                It&apos;s That Simple!
               </h3>
               <p 
                 className="text-base sm:text-lg mb-6"

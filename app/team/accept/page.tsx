@@ -1,14 +1,14 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { FaReceipt, FaUser, FaBuilding, FaSpinner } from 'react-icons/fa';
 import { HiSparkles } from 'react-icons/hi';
 import { useTheme } from '../../theme/theme';
 import { TeamInvitation } from '../../../types/team';
 
-export default function TeamAcceptPage() {
+function TeamAcceptContent() {
   const { theme } = useTheme();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -495,5 +495,27 @@ export default function TeamAcceptPage() {
         </motion.div>
       </motion.div>
     </div>
+  );
+}
+
+export default function TeamAcceptPage() {
+  return (
+    <Suspense fallback={
+      <div 
+        className="min-h-screen flex items-center justify-center"
+        style={{ backgroundColor: '#FFFFFF' }}
+      >
+        <motion.div
+          animate={{ rotate: 360 }}
+          transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+          className="text-4xl"
+          style={{ color: '#B8860B' }}
+        >
+          <FaSpinner />
+        </motion.div>
+      </div>
+    }>
+      <TeamAcceptContent />
+    </Suspense>
   );
 }
