@@ -5,6 +5,7 @@ import { FaApple, FaGooglePlay, FaReceipt, FaStar, FaCheckCircle, FaMoon, FaSun 
 import { HiSparkles } from 'react-icons/hi';
 import { BsPhone, BsCloudUpload, BsShield } from 'react-icons/bs';
 import { useTheme } from './theme/theme';
+import Image from 'next/image';
 
 export default function Home() {
   const { theme, themeMode, toggleTheme } = useTheme();
@@ -23,12 +24,16 @@ export default function Home() {
       >
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <div className="flex items-center space-x-2">
-            <FaReceipt 
-              className="text-2xl sm:text-3xl" 
-              style={{ color: theme.gold.primary }}
-            />
+            <div className="w-8 h-8 sm:w-10 sm:h-10 relative">
+              <Image
+                src="/images/logo.jpg"
+                alt="ReceiptGold Logo"
+                fill
+                className="object-contain rounded-lg"
+              />
+            </div>
             <span 
-              className="text-lg sm:text-2xl font-bold"
+              className="text-lg sm:text-2xl font-heading font-bold tracking-tight"
               style={{ color: theme.text.primary }}
             >
               ReceiptGold
@@ -74,16 +79,20 @@ export default function Home() {
             >
               <div className="relative">
                 <div 
-                  className="w-24 h-24 sm:w-32 sm:h-32 rounded-2xl sm:rounded-3xl flex items-center justify-center"
+                  className="w-24 h-24 sm:w-32 sm:h-32 rounded-2xl sm:rounded-3xl flex items-center justify-center p-2"
                   style={{ 
                     backgroundImage: `linear-gradient(135deg, ${theme.gold.primary}, ${theme.gold.rich})`,
                     boxShadow: theme.shadow.large
                   }}
                 >
-                  <FaReceipt 
-                    className="text-3xl sm:text-5xl" 
-                    style={{ color: theme.text.inverse }}
-                  />
+                  <div className="w-full h-full relative">
+                    <Image
+                      src="/images/logo.jpg"
+                      alt="ReceiptGold Logo"
+                      fill
+                      className="object-contain rounded-xl sm:rounded-2xl"
+                    />
+                  </div>
                 </div>
                 <motion.div
                   animate={{ rotate: 360 }}
@@ -103,16 +112,9 @@ export default function Home() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-4xl sm:text-6xl md:text-8xl font-bold mb-4 sm:mb-6 px-2"
+              className="text-5xl sm:text-7xl md:text-9xl font-heading font-black mb-6 sm:mb-8 px-2 tracking-tighter leading-none"
             >
-              <span 
-                style={{ 
-                  backgroundImage: `linear-gradient(135deg, ${theme.gold.primary}, ${theme.gold.rich}, ${theme.gold.muted})`,
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text'
-                }}
-              >
+              <span className="text-gradient">
                 ReceiptGold
               </span>
             </motion.h1>
@@ -122,16 +124,16 @@ export default function Home() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="text-lg sm:text-2xl md:text-3xl mb-8 sm:mb-12 max-w-3xl mx-auto leading-relaxed px-4"
+              className="text-xl sm:text-3xl md:text-4xl mb-10 sm:mb-16 max-w-4xl mx-auto leading-relaxed px-4 font-display font-medium"
               style={{ color: theme.text.secondary }}
             >
               The ultimate expense management app for{' '}
               <span 
-                className="font-semibold"
-                style={{ color: theme.gold.primary }}
+                className="font-bold text-gradient"
               >
                 LLC owners
               </span>. 
+              <br className="hidden sm:block" />
               Streamline your business receipts, track deductions, and simplify tax season.
             </motion.p>
 
@@ -140,10 +142,10 @@ export default function Home() {
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, delay: 0.6 }}
-              className="inline-flex items-center space-x-2 backdrop-blur-sm px-4 sm:px-8 py-3 sm:py-4 rounded-full mb-12 sm:mb-16 mx-4"
+              className="inline-flex items-center space-x-3 glass-effect px-6 sm:px-10 py-4 sm:py-6 rounded-full mb-16 sm:mb-20 mx-4 border border-opacity-20"
               style={{ 
-                backgroundColor: theme.background.elevated,
-                boxShadow: theme.shadow.medium
+                borderColor: theme.gold.primary,
+                boxShadow: `0 8px 32px rgba(184, 134, 11, 0.1), ${theme.shadow.large}`
               }}
             >
               <HiSparkles 
@@ -151,7 +153,7 @@ export default function Home() {
                 style={{ color: theme.gold.primary }}
               />
               <span 
-                className="text-sm sm:text-lg font-medium"
+                className="text-base sm:text-xl font-display font-semibold tracking-wide"
                 style={{ color: theme.text.primary }}
               >
                 Coming Soon for Business Owners
@@ -193,27 +195,29 @@ export default function Home() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 1.2 + index * 0.1 }}
-                whileHover={{ y: -5 }}
-                className="p-6 sm:p-8 rounded-2xl sm:rounded-3xl transition-all duration-300"
+                whileHover={{ y: -8, scale: 1.02 }}
+                className="group p-8 sm:p-10 rounded-3xl sm:rounded-[2rem] transition-all duration-500 glass-effect hover:shadow-2xl border border-opacity-10"
                 style={{ 
-                  backgroundColor: theme.background.elevated,
-                  boxShadow: theme.shadow.medium
+                  borderColor: theme.gold.primary,
+                  boxShadow: `0 4px 24px rgba(184, 134, 11, 0.05), ${theme.shadow.medium}`
                 }}
               >
                 <div 
-                  className="mb-3 sm:mb-4 flex justify-center"
+                  className="mb-6 sm:mb-8 flex justify-center transform group-hover:scale-110 transition-transform duration-300"
                   style={{ color: theme.gold.primary }}
                 >
-                  {feature.icon}
+                  <div className="text-3xl sm:text-4xl p-4 rounded-2xl" style={{ backgroundColor: `${theme.gold.primary}15` }}>
+                    {feature.icon}
+                  </div>
                 </div>
                 <h3 
-                  className="text-lg sm:text-xl font-bold mb-2 sm:mb-3"
+                  className="text-xl sm:text-2xl font-heading font-bold mb-4 sm:mb-6 tracking-tight"
                   style={{ color: theme.text.primary }}
                 >
                   {feature.title}
                 </h3>
                 <p 
-                  className="text-sm sm:text-base leading-relaxed"
+                  className="text-base sm:text-lg leading-relaxed font-display"
                   style={{ color: theme.text.secondary }}
                 >
                   {feature.description}
@@ -230,13 +234,13 @@ export default function Home() {
             className="mt-16 sm:mt-20 text-center px-4"
           >
             <h2 
-              className="text-3xl sm:text-5xl font-bold mb-4 sm:mb-6"
+              className="text-4xl sm:text-6xl md:text-7xl font-heading font-black mb-6 sm:mb-8 tracking-tighter"
               style={{ color: theme.text.primary }}
             >
               How Does It Work?
             </h2>
             <p 
-              className="text-lg sm:text-xl mb-12 sm:mb-16 max-w-3xl mx-auto leading-relaxed"
+              className="text-xl sm:text-2xl md:text-3xl mb-16 sm:mb-20 max-w-4xl mx-auto leading-relaxed font-display font-medium"
               style={{ color: theme.text.secondary }}
             >
               Transform your business expense management in just a few simple steps
@@ -291,13 +295,13 @@ export default function Home() {
                       </div>
                     </div>
                     <h3 
-                      className="text-2xl sm:text-3xl font-bold mb-4"
+                      className="text-3xl sm:text-4xl font-heading font-bold mb-6 tracking-tight"
                       style={{ color: theme.text.primary }}
                     >
                       {item.title}
                     </h3>
                     <p 
-                      className="text-base sm:text-lg leading-relaxed"
+                      className="text-lg sm:text-xl leading-relaxed font-display"
                       style={{ color: theme.text.secondary }}
                     >
                       {item.description}
@@ -402,10 +406,10 @@ export default function Home() {
             className="mt-16 sm:mt-20 text-center px-4"
           >
             <h2 
-              className="text-2xl sm:text-4xl font-bold mb-8 sm:mb-12"
+              className="text-4xl sm:text-6xl font-heading font-black mb-12 sm:mb-16 tracking-tighter"
               style={{ color: theme.text.primary }}
             >
-              Perfect for LLC Owners
+              Perfect for <span className="text-gradient">LLC Owners</span>
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 max-w-6xl mx-auto">
               {[
@@ -419,10 +423,10 @@ export default function Home() {
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.5, delay: 3.2 + index * 0.1 }}
-                  className="flex items-center space-x-3 px-4 sm:px-6 py-3 sm:py-4 rounded-xl sm:rounded-2xl"
+                  className="flex items-center space-x-4 px-6 sm:px-8 py-4 sm:py-6 rounded-2xl glass-effect border border-opacity-10 hover:border-opacity-20 transition-all duration-300"
                   style={{ 
-                    backgroundColor: theme.background.elevated,
-                    boxShadow: theme.shadow.small
+                    borderColor: theme.gold.primary,
+                    boxShadow: `0 4px 16px rgba(184, 134, 11, 0.05)`
                   }}
                 >
                   <div 
@@ -432,7 +436,7 @@ export default function Home() {
                     {benefit.icon}
                   </div>
                   <span 
-                    className="text-sm sm:text-base font-medium text-left"
+                    className="text-base sm:text-lg font-display font-semibold text-left"
                     style={{ color: theme.text.primary }}
                   >
                     {benefit.text}
@@ -450,21 +454,21 @@ export default function Home() {
             className="mt-16 sm:mt-20 text-center px-4"
           >
             <h2 
-              className="text-2xl sm:text-3xl font-bold mb-8 sm:mb-12"
+              className="text-4xl sm:text-5xl font-heading font-black mb-12 sm:mb-16 tracking-tighter"
               style={{ color: theme.text.primary }}
             >
-              Get ReceiptGold
+              Get <span className="text-gradient">ReceiptGold</span>
             </h2>
             <div className="flex flex-col space-y-4 justify-center items-center max-w-md mx-auto">
               <motion.a
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
                 href="#"
-                className="flex items-center space-x-3 px-6 sm:px-8 py-3 sm:py-4 rounded-2xl transition-all duration-300 w-full"
+                className="flex items-center space-x-4 px-8 sm:px-10 py-4 sm:py-5 rounded-2xl transition-all duration-300 w-full font-display font-semibold text-lg hover:scale-105 hover:shadow-2xl"
                 style={{ 
                   backgroundColor: '#000000',
                   color: '#FFFFFF',
-                  boxShadow: theme.shadow.large
+                  boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)'
                 }}
               >
                 <FaApple className="text-2xl sm:text-3xl" />
@@ -478,11 +482,11 @@ export default function Home() {
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
                 href="#"
-                className="flex items-center space-x-3 px-6 sm:px-8 py-3 sm:py-4 rounded-2xl transition-all duration-300 w-full"
+                className="flex items-center space-x-4 px-8 sm:px-10 py-4 sm:py-5 rounded-2xl transition-all duration-300 w-full font-display font-semibold text-lg hover:scale-105 hover:shadow-2xl"
                 style={{ 
                   backgroundImage: 'linear-gradient(135deg, #34C759, #007AFF)',
                   color: '#FFFFFF',
-                  boxShadow: theme.shadow.large
+                  boxShadow: '0 8px 32px rgba(52, 199, 89, 0.3)'
                 }}
               >
                 <FaGooglePlay className="text-2xl sm:text-3xl" />
@@ -509,13 +513,13 @@ export default function Home() {
               }}
             >
               <h3 
-                className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4"
+                className="text-3xl sm:text-4xl font-heading font-black mb-4 sm:mb-6 tracking-tight"
                 style={{ color: theme.text.inverse }}
               >
                 Get Early Access
               </h3>
               <p 
-                className="mb-6 sm:mb-8 text-base sm:text-lg opacity-90"
+                className="mb-8 sm:mb-10 text-lg sm:text-xl opacity-95 font-display"
                 style={{ color: theme.text.inverse }}
               >
                 Join the waitlist and be among the first LLC owners to streamline your business expenses!
@@ -523,28 +527,31 @@ export default function Home() {
               <div className="flex flex-col space-y-3 sm:space-y-4">
                 <input
                   type="email"
-                  placeholder="Enter your email"
-                  className="w-full px-4 sm:px-6 py-3 sm:py-4 rounded-xl sm:rounded-2xl text-base sm:text-lg focus:outline-none transition-all duration-300"
+                  placeholder="Enter your email address"
+                  className="w-full px-6 sm:px-8 py-4 sm:py-5 rounded-2xl text-lg sm:text-xl focus:outline-none transition-all duration-300 font-display placeholder:opacity-70"
                   style={{ 
                     backgroundColor: theme.background.primary,
                     color: theme.text.primary,
-                    border: `2px solid transparent`
+                    border: `2px solid rgba(184, 134, 11, 0.2)`,
+                    boxShadow: '0 4px 16px rgba(184, 134, 11, 0.1)'
                   }}
                   onFocus={(e) => {
                     e.target.style.border = `2px solid ${theme.gold.primary}`;
+                    e.target.style.boxShadow = `0 8px 24px rgba(184, 134, 11, 0.2)`;
                   }}
                   onBlur={(e) => {
-                    e.target.style.border = '2px solid transparent';
+                    e.target.style.border = '2px solid rgba(184, 134, 11, 0.2)';
+                    e.target.style.boxShadow = '0 4px 16px rgba(184, 134, 11, 0.1)';
                   }}
                 />
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="w-full px-6 sm:px-8 py-3 sm:py-4 rounded-xl sm:rounded-2xl font-bold text-base sm:text-lg transition-all duration-300"
+                  className="w-full px-8 sm:px-10 py-4 sm:py-5 rounded-2xl font-display font-bold text-lg sm:text-xl transition-all duration-300 hover:shadow-2xl"
                   style={{ 
                     backgroundColor: theme.background.primary,
                     color: theme.gold.primary,
-                    boxShadow: theme.shadow.medium
+                    boxShadow: '0 8px 24px rgba(184, 134, 11, 0.2)'
                   }}
                 >
                   Join Waitlist
@@ -597,7 +604,14 @@ export default function Home() {
             © 2025 ReceiptGold. Expense management made simple for LLC owners - coming soon!
           </p>
           <div className="flex justify-center items-center space-x-2 mt-3 sm:mt-4">
-            <FaReceipt style={{ color: theme.gold.primary }} />
+            <div className="w-4 h-4 sm:w-5 sm:h-5 relative">
+              <Image
+                src="/images/logo.jpg"
+                alt="ReceiptGold Logo"
+                fill
+                className="object-contain rounded"
+              />
+            </div>
             <span 
               className="font-medium text-sm sm:text-base"
               style={{ color: theme.gold.primary }}
