@@ -36,10 +36,26 @@ export interface TeamMember {
 }
 
 export interface TeamPermissions {
+  // Receipt permissions
   canCreateReceipts: boolean;
   canEditOwnReceipts: boolean;
   canDeleteOwnReceipts: boolean;
-  canViewTeamReceipts: boolean; // For future expansion
+  canViewTeamReceipts: boolean;
+  
+  // Business permissions
+  canViewBusiness: boolean;
+  canCreateBusiness: boolean;
+  canEditBusiness: boolean;
+  canDeleteBusiness: boolean;
+  
+  // Subscription permissions
+  canViewSubscription: boolean;
+  canEditSubscription: boolean;
+  canManageTeam: boolean;
+  
+  // UI/Feature permissions
+  hasReceiptLimits: boolean;
+  showsProfessionalFeatures: boolean;
 }
 
 export interface TeamStats {

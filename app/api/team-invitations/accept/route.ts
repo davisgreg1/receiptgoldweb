@@ -3,6 +3,7 @@ import { adminDb } from '../../../../lib/firebase-admin';
 import { getAuth } from 'firebase-admin/auth';
 import { FieldValue } from 'firebase-admin/firestore';
 import { TeamInvitation, TeamMember } from '../../../../types/team';
+import { getPermissionsForRole } from '../../../../lib/permissions';
 
 interface AcceptInvitationRequest {
   token: string;
@@ -91,7 +92,7 @@ export async function POST(request: NextRequest) {
       status: 'active',
       joinedAt: new Date(),
       lastActiveAt: new Date(),
-      permissions: getDefaultPermissions(invitation.role)
+      permissions: getPermissionsForRole(invitation.role)
     };
 
     const teamMemberDoc = await adminDb.collection('teamMembers').add({
@@ -152,29 +153,3 @@ export async function POST(request: NextRequest) {
   }
 }
 
-// Helper function that would be used in the real implementation
-function getDefaultPermissions(role: 'teammate' | 'admin') {
-  switch (role) {
-    case 'teammate':
-      return {
-        canCreateReceipts: true,
-        canEditOwnReceipts: true,
-        canDeleteOwnReceipts: true,
-        canViewTeamReceipts: false,
-      };
-    case 'admin':
-      return {
-        canCreateReceipts: true,
-        canEditOwnReceipts: true,
-        canDeleteOwnReceipts: true,
-        canViewTeamReceipts: true,
-      };
-    default:
-      return {
-        canCreateReceipts: false,
-        canEditOwnReceipts: false,
-        canDeleteOwnReceipts: false,
-        canViewTeamReceipts: false,
-      };
-  }
-}
