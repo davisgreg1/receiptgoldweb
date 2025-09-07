@@ -17,8 +17,9 @@ module.exports = {
         }
       },
       fontFamily: {
-        sans: ['var(--font-geist-sans)'],
-        mono: ['var(--font-geist-mono)'],
+        sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
+        display: ['var(--font-jakarta)', 'var(--font-inter)', 'system-ui', 'sans-serif'],
+        heading: ['var(--font-space-grotesk)', 'var(--font-jakarta)', 'system-ui', 'sans-serif'],
       },
     },
   },
