@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { FaReceipt, FaUser, FaBuilding, FaSpinner } from 'react-icons/fa';
+import { FaReceipt, FaUser, FaBuilding, FaSpinner, FaEye, FaEyeSlash } from 'react-icons/fa';
 import { HiSparkles } from 'react-icons/hi';
 import { useTheme } from '../../theme/theme';
 import { TeamInvitation } from '../../../types/team';
@@ -26,6 +26,8 @@ function TeamAcceptContent() {
     lastName: ''
   });
   const [submitting, setSubmitting] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   useEffect(() => {
     if (token) {
@@ -120,7 +122,8 @@ function TeamAcceptContent() {
     );
   }
 
-  if (error || !invitation) {
+  // Only show error page for token validation errors, not form validation errors
+  if ((error && !invitation) || !invitation) {
     return (
       <div 
         className="min-h-screen flex items-center justify-center p-4"
@@ -390,24 +393,34 @@ function TeamAcceptContent() {
               >
                 Password
               </label>
-              <input
-                type="password"
-                value={formData.password}
-                onChange={(e) => setFormData(prev => ({ ...prev, password: e.target.value }))}
-                required
-                className="w-full px-4 py-3 rounded-xl focus:outline-none transition-all duration-300"
-                style={{ 
-                  backgroundColor: theme.background.secondary,
-                  color: theme.text.primary,
-                  border: `1px solid ${theme.border.primary}`
-                }}
-                onFocus={(e) => {
-                  e.target.style.border = `1px solid ${theme.gold.primary}`;
-                }}
-                onBlur={(e) => {
-                  e.target.style.border = `1px solid ${theme.border.primary}`;
-                }}
-              />
+              <div className="relative">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  value={formData.password}
+                  onChange={(e) => setFormData(prev => ({ ...prev, password: e.target.value }))}
+                  required
+                  className="w-full px-4 py-3 pr-12 rounded-xl focus:outline-none transition-all duration-300"
+                  style={{ 
+                    backgroundColor: theme.background.secondary,
+                    color: theme.text.primary,
+                    border: `1px solid ${theme.border.primary}`
+                  }}
+                  onFocus={(e) => {
+                    e.target.style.border = `1px solid ${theme.gold.primary}`;
+                  }}
+                  onBlur={(e) => {
+                    e.target.style.border = `1px solid ${theme.border.primary}`;
+                  }}
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 p-1 rounded-lg hover:bg-opacity-10 hover:bg-gray-500 transition-all duration-200"
+                  style={{ color: theme.text.secondary }}
+                >
+                  {showPassword ? <FaEyeSlash /> : <FaEye />}
+                </button>
+              </div>
             </div>
 
             {/* Confirm Password */}
@@ -418,24 +431,34 @@ function TeamAcceptContent() {
               >
                 Confirm Password
               </label>
-              <input
-                type="password"
-                value={formData.confirmPassword}
-                onChange={(e) => setFormData(prev => ({ ...prev, confirmPassword: e.target.value }))}
-                required
-                className="w-full px-4 py-3 rounded-xl focus:outline-none transition-all duration-300"
-                style={{ 
-                  backgroundColor: theme.background.secondary,
-                  color: theme.text.primary,
-                  border: `1px solid ${theme.border.primary}`
-                }}
-                onFocus={(e) => {
-                  e.target.style.border = `1px solid ${theme.gold.primary}`;
-                }}
-                onBlur={(e) => {
-                  e.target.style.border = `1px solid ${theme.border.primary}`;
-                }}
-              />
+              <div className="relative">
+                <input
+                  type={showConfirmPassword ? "text" : "password"}
+                  value={formData.confirmPassword}
+                  onChange={(e) => setFormData(prev => ({ ...prev, confirmPassword: e.target.value }))}
+                  required
+                  className="w-full px-4 py-3 pr-12 rounded-xl focus:outline-none transition-all duration-300"
+                  style={{ 
+                    backgroundColor: theme.background.secondary,
+                    color: theme.text.primary,
+                    border: `1px solid ${theme.border.primary}`
+                  }}
+                  onFocus={(e) => {
+                    e.target.style.border = `1px solid ${theme.gold.primary}`;
+                  }}
+                  onBlur={(e) => {
+                    e.target.style.border = `1px solid ${theme.border.primary}`;
+                  }}
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 p-1 rounded-lg hover:bg-opacity-10 hover:bg-gray-500 transition-all duration-200"
+                  style={{ color: theme.text.secondary }}
+                >
+                  {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+                </button>
+              </div>
             </div>
 
             {/* Error Message */}

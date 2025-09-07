@@ -2,7 +2,7 @@
 
 import { useUserPermissions } from '@/hooks/useUserPermissions';
 import TeammateStatusCard from './TeammateStatusCard';
-import { Settings, CreditCard, Users, Building2, Bell } from 'lucide-react';
+import { FaCog as Settings, FaCreditCard as CreditCard, FaUsers as Users, FaBuilding as Building2, FaBell as Bell } from 'react-icons/fa';
 
 interface SettingsContentProps {
   userId?: string;

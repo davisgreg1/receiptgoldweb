@@ -1,7 +1,8 @@
 'use client';
 
 import { TeamMember, TeamMemberRole } from '@/types/team';
-import { Users, Crown, Shield, Building2, Mail, Calendar } from 'lucide-react';
+import { FaUsers as Users, FaCrown as Crown, FaBuilding as Building2, FaEnvelope as Mail, FaCalendar as Calendar } from 'react-icons/fa';
+import { BsShield as Shield } from 'react-icons/bs';
 
 interface TeammateStatusCardProps {
   teamMember: TeamMember;
