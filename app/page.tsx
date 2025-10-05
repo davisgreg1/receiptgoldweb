@@ -6,6 +6,7 @@ import { HiSparkles } from 'react-icons/hi';
 import { BsPhone, BsCloudUpload, BsShield } from 'react-icons/bs';
 import { useTheme } from './theme/theme';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function Home() {
   const { theme, themeMode, toggleTheme } = useTheme();
@@ -619,15 +620,31 @@ export default function Home() {
               Streamline your business expenses on iOS & Android
             </span>
           </div>
-          <div 
-            className="mt-4 sm:mt-6 pt-3 sm:pt-4"
+          <div
+            className="mt-4 sm:mt-6 pt-3 sm:pt-4 space-y-3"
             style={{ borderTop: `1px solid ${theme.border.primary}` }}
           >
-            <a 
-              href="https://www.gregdavistech.com" 
-              target="_blank" 
+            <div className="flex justify-center space-x-6">
+              <Link
+                href="/privacy-policy"
+                className="text-xs sm:text-sm transition-colors duration-300 hover:opacity-80"
+                style={{ color: theme.gold.primary }}
+              >
+                Privacy Policy
+              </Link>
+              <Link
+                href="/terms"
+                className="text-xs sm:text-sm transition-colors duration-300 hover:opacity-80"
+                style={{ color: theme.gold.primary }}
+              >
+                Terms of Service
+              </Link>
+            </div>
+            <a
+              href="https://www.gregdavistech.com"
+              target="_blank"
               rel="noopener noreferrer"
-              className="text-xs sm:text-sm transition-colors duration-300 hover:opacity-80"
+              className="text-xs sm:text-sm transition-colors duration-300 hover:opacity-80 block"
               style={{ color: theme.text.tertiary }}
             >
               GregDavisTech, LLC 2025
