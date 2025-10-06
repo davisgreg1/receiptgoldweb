@@ -10,7 +10,7 @@ interface PolicySection {
   id: string;
   title: string;
   content: PolicyContent[];
-  icon: any;
+  icon: React.ComponentType<{ className?: string; style?: React.CSSProperties }>;
 }
 
 interface PolicyContent {
@@ -674,7 +674,7 @@ const policySections: PolicySection[] = [
 ];
 
 export default function PrivacyPolicyPage() {
-  const { theme, themeMode, toggleTheme } = useTheme();
+  const { theme } = useTheme();
   const [expandedSection, setExpandedSection] = useState<string | null>('1');
 
   const toggleSection = (id: string) => {
