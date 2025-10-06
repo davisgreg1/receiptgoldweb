@@ -10,7 +10,7 @@ interface TermsSection {
   id: string;
   title: string;
   content: TermsContent[];
-  icon: any;
+  icon: React.ComponentType<{ className?: string; style?: React.CSSProperties }>;
 }
 
 interface TermsContent {
@@ -705,7 +705,7 @@ const termsSections: TermsSection[] = [
 ];
 
 export default function TermsOfServicePage() {
-  const { theme, themeMode, toggleTheme } = useTheme();
+  const { theme } = useTheme();
   const [expandedSection, setExpandedSection] = useState<string | null>('1');
 
   const toggleSection = (id: string) => {
