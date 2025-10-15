@@ -654,7 +654,7 @@ const termsSections: TermsSection[] = [
       },
       {
         type: 'text',
-        text: 'These Terms of Service are effective as of January 15, 2025.'
+        text: 'These Terms of Service are effective as of October 1, 2025.'
       },
       {
         type: 'header',
@@ -785,7 +785,7 @@ export default function TermsOfServicePage() {
               className="text-sm font-medium"
               style={{ color: theme.text.secondary }}
             >
-              Last updated: January 15, 2025
+              Last updated: October 1, 2025
             </span>
           </div>
         </motion.div>
