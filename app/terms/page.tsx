@@ -64,11 +64,11 @@ const termsSections: TermsSection[] = [
       {
         type: 'list',
         items: [
-          'These Terms are governed by California law, without regard to conflict of law principles',
-          'Any disputes will be resolved in California state or federal courts',
+          'These Terms are governed by Georgia law, without regard to conflict of law principles',
+          'Any disputes will be resolved in Georgia state or federal courts',
           'If any provision is invalid or unenforceable, the rest remain in effect',
           'These Terms supersede any previous agreements or communications',
-          'Both parties consent to the jurisdiction of California courts'
+          'Both parties consent to the jurisdiction of Georgia courts'
         ]
       }
     ]
@@ -687,8 +687,8 @@ const termsSections: TermsSection[] = [
         type: 'list',
         items: [
           'We encourage resolving disputes through direct communication',
-          'California law governs these Terms',
-          'Disputes will be resolved in California state or federal courts',
+          'Georgia law governs these Terms',
+          'Disputes will be resolved in Georgia state or federal courts',
           'You may have rights to arbitration under applicable law'
         ]
       },
