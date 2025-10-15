@@ -626,7 +626,7 @@ const policySections: PolicySection[] = [
       },
       {
         type: 'text',
-        text: 'This privacy policy is effective as of January 15, 2025.'
+        text: 'This privacy policy is effective as of October 1, 2025.'
       },
       {
         type: 'header',
@@ -754,7 +754,7 @@ export default function PrivacyPolicyPage() {
               className="text-sm font-medium"
               style={{ color: theme.text.secondary }}
             >
-              Last updated: January 15, 2025
+              Last updated: October 1, 2025
             </span>
           </div>
         </motion.div>
