@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
+import Link from 'next/link';
 import { FaReceipt, FaUser, FaBuilding, FaSpinner, FaEye, FaEyeSlash } from 'react-icons/fa';
 import { HiSparkles } from 'react-icons/hi';
 import { useTheme } from '../../theme/theme';
@@ -187,7 +188,7 @@ function TeamAcceptContent() {
         {/* Header */}
         <div className="text-center mb-8">
           <motion.div
-            initial={{ scale: 0, rotate: -180 }}
+            initial={{ scale: 0, rotate: 180 }}
             animate={{ scale: 1, rotate: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="mb-6 flex justify-center"
@@ -247,7 +248,7 @@ function TeamAcceptContent() {
                   className="text-sm"
                   style={{ color: theme.text.secondary }}
                 >
-                  Invited by {invitation.accountHolderName}
+                  Invited by <span className="capitalize">{invitation.accountHolderName}</span>
                 </p>
               </div>
             </div>
@@ -509,11 +510,26 @@ function TeamAcceptContent() {
             </motion.button>
           </form>
 
-          <p 
+          <p
             className="text-center text-sm mt-6"
             style={{ color: theme.text.tertiary }}
           >
-            By joining, you agree to our Terms of Service and Privacy Policy
+            By joining, you agree to our{' '}
+            <Link
+              href="/terms"
+              className="underline hover:opacity-70 transition-opacity"
+              style={{ color: theme.gold.primary }}
+            >
+              Terms of Service
+            </Link>
+            {' '}and{' '}
+            <Link
+              href="/privacy-policy"
+              className="underline hover:opacity-70 transition-opacity"
+              style={{ color: theme.gold.primary }}
+            >
+              Privacy Policy
+            </Link>
           </p>
         </motion.div>
       </motion.div>

@@ -641,7 +641,6 @@ const policySections: PolicySection[] = [
         items: [
           'Email: privacy@receiptgold.com',
           'Support: Through the app\'s Contact Support feature',
-          'Mail: GregDavisTech, LLC\n  Privacy Team\n  123 Business Ave\n  San Francisco, CA 94102'
         ]
       },
       {
