@@ -224,8 +224,8 @@ export default function Home() {
                     playsInline
                     className="w-full h-full object-cover"
                   >
-                    <source src="/appleBankBill.mov" type="video/mp4" />
-                    <source src="/appleBankBill.mov" type="video/quicktime" />
+                    <source src="/quickScanAnim.mov" type="video/mp4" />
+                    <source src="/quickScanAnim.mov" type="video/quicktime" />
                     Your browser does not support the video tag.
                   </video>
                 </motion.div>
