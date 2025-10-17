@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack -p 8089",
+    "dev:staging": "NEXT_PUBLIC_ENVIRONMENT=staging next dev --turbopack -p 8089",
     "build": "next build",
+    "build:staging": "NEXT_PUBLIC_ENVIRONMENT=staging next build",
     "start": "next start",
     "lint": "eslint"
   },

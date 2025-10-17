@@ -1,20 +1,46 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+## ReceiptGold Web - Team Invitation Portal
 
-First, run the development server:
+This Next.js application handles team invitation acceptance for ReceiptGold, supporting both **staging** and **production** environments.
 
+## Environment Setup
+
+### Prerequisites
+1. Copy `.env.example` to `.env` for production credentials
+2. Get Firebase Admin SDK credentials from Firebase Console > Project Settings > Service Accounts
+
+### Production Environment (default)
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# .env
+FIREBASE_PROJECT_ID=receiptgold
+FIREBASE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n"
+FIREBASE_CLIENT_EMAIL=firebase-adminsdk-xxxxx@receiptgold.iam.gserviceaccount.com
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Staging Environment
+For staging environment, add staging credentials to your `.env` file:
+```bash
+# .env
+NEXT_PUBLIC_ENVIRONMENT=staging
+FIREBASE_STAGING_PROJECT_ID=receiptgold-dev
+FIREBASE_STAGING_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n"
+FIREBASE_STAGING_CLIENT_EMAIL=firebase-adminsdk-xxxxx@receiptgold-dev.iam.gserviceaccount.com
+```
+
+## Getting Started
+
+Run the development server:
+
+```bash
+# Production environment
+npm run dev
+
+# Staging environment
+npm run dev:staging
+```
+
+Open [http://localhost:8089](http://localhost:8089) with your browser to see the result.
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
