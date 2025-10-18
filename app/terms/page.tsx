@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { useTheme } from '../theme/theme';
 import Link from 'next/link';
+import Image from 'next/image';
 import { FaFileContract, FaClock, FaCheckCircle, FaFileAlt, FaUser, FaCreditCard, FaBook, FaShieldAlt, FaExclamationTriangle, FaEnvelope } from 'react-icons/fa';
 import { useState } from 'react';
 
@@ -726,6 +727,14 @@ export default function TermsOfServicePage() {
       >
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <Link href="/" className="flex items-center space-x-2 hover:opacity-80 transition-opacity">
+            <div className="w-8 h-8 sm:w-10 sm:h-10 relative">
+              <Image
+                src="/images/logo.jpg"
+                alt="ReceiptGold Logo"
+                fill
+                className="object-contain rounded-lg"
+              />
+            </div>
             <span
               className="text-lg sm:text-2xl font-heading font-bold tracking-tight"
               style={{ color: theme.text.primary }}
