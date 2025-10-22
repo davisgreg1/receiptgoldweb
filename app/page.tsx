@@ -157,7 +157,9 @@ export default function Home() {
                 <motion.a
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.95 }}
-                  href="#"
+                  href="https://testflight.apple.com/join/Y3fBYyaD"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="flex items-center justify-center space-x-3 px-6 py-4 rounded-2xl transition-all duration-300 font-semibold text-base shadow-lg hover:shadow-xl"
                   style={{
                     backgroundColor: '#000000',
@@ -508,7 +510,9 @@ export default function Home() {
                 <motion.a
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.95 }}
-                  href="#"
+                  href="https://testflight.apple.com/join/Y3fBYyaD"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="flex items-center justify-center space-x-3 px-8 py-5 rounded-2xl transition-all duration-300 font-semibold text-base shadow-xl"
                   style={{
                     backgroundColor: '#000000',
