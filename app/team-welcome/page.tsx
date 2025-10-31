@@ -163,7 +163,7 @@ export default function TeamWelcomePage() {
             <motion.a
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
-              href="#"
+              href="https://apps.apple.com/us/app/receiptgold/id6751426301"
               className="flex items-center space-x-3 px-6 py-4 rounded-2xl transition-all duration-300"
               style={{ 
                 backgroundColor: '#000000',
