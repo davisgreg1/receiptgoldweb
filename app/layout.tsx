@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { Analytics } from "@vercel/analytics/next"
 import { Inter, Plus_Jakarta_Sans, Space_Grotesk } from "next/font/google";
 import { ThemeProvider } from "./theme/theme";
 import "./globals.css";
@@ -57,6 +58,7 @@ export default function RootLayout({
       >
         <ThemeProvider>
           {children}
+          <Analytics/>
         </ThemeProvider>
       </body>
     </html>
