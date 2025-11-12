@@ -93,6 +93,8 @@ const termsSections: TermsSection[] = [
           'Receipt scanning using device camera or image picker',
           'AI-powered OCR technology for automatic data extraction',
           'Intelligent expense categorization and organization',
+          'Mileage tracking for business, personal, and commute trips with GPS location support',
+          'Automated mileage rate calculations based on IRS standard rates or custom rates',
           'Tax report generation and export in multiple formats (PDF, CSV, Excel)',
           'Real-time cloud backup and multi-device synchronization',
           'Team collaboration and business management features',
@@ -378,7 +380,7 @@ const termsSections: TermsSection[] = [
       {
         type: 'list',
         items: [
-          'You retain ownership of receipt images and data you upload',
+          'You retain ownership of receipt images, mileage data, and all other data you upload',
           'You grant us license to process, store, and display your content',
           'This license is necessary to provide our services',
           'You can revoke this license by deleting your content or account'
@@ -443,6 +445,8 @@ const termsSections: TermsSection[] = [
         items: [
           'We collect information as described in our Privacy Policy',
           'Receipt images and extracted data are encrypted and secured',
+          'Location data is collected when you use mileage tracking features with your explicit permission',
+          'Location data is used solely to calculate trip distances and provide location-based features',
           'Usage analytics help us improve the service',
           'You control what data you share with us'
         ]
@@ -550,6 +554,9 @@ const termsSections: TermsSection[] = [
           'While we strive for accuracy, AI/OCR processing may contain errors',
           'You\'re responsible for reviewing and verifying all extracted data',
           'We don\'t guarantee the completeness or accuracy of receipt processing',
+          'Mileage tracking relies on GPS and location services; accuracy depends on device capabilities and signal strength',
+          'Mileage calculations and distance measurements are estimates and should be verified for tax or business purposes',
+          'You\'re responsible for ensuring mileage entries comply with IRS requirements and maintaining proper documentation',
           'Currency conversions and calculations are estimates only',
           'Tax category suggestions may not be appropriate for your specific situation',
           'Bank transaction matching may have false positives or missed matches'
@@ -794,7 +801,7 @@ export default function TermsOfServicePage() {
               className="text-sm font-medium"
               style={{ color: theme.text.secondary }}
             >
-              Last updated: October 1, 2025
+              Last updated: November 12, 2025
             </span>
           </div>
         </motion.div>
