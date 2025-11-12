@@ -181,7 +181,7 @@ export default function TeamWelcomePage() {
             <motion.a
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
-              href="#"
+              href="https://play.google.com/apps/internaltest/4701695210359611294"
               className="flex items-center space-x-3 px-6 py-4 rounded-2xl transition-all duration-300"
               style={{ 
                 backgroundImage: 'linear-gradient(135deg, #34C759, #007AFF)',

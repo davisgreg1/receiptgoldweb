@@ -222,7 +222,7 @@ export default function Home() {
           </motion.a>
 
           <motion.a
-            href="#"
+            href="https://play.google.com/apps/internaltest/4701695210359611294"
             className="inline-flex items-center gap-3 bg-green-600 text-white px-8 py-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-shadow group"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}

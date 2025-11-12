@@ -176,7 +176,7 @@ export default function Home() {
                 <motion.a
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.95 }}
-                  href="#"
+                  href="https://play.google.com/apps/internaltest/4701695210359611294"
                   className="flex items-center justify-center space-x-3 px-6 py-4 rounded-2xl transition-all duration-300 font-semibold text-base shadow-lg hover:shadow-xl"
                   style={{
                     backgroundImage: 'linear-gradient(135deg, #34C759, #007AFF)',
@@ -529,7 +529,7 @@ export default function Home() {
                 <motion.a
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.95 }}
-                  href="#"
+                  href="https://play.google.com/apps/internaltest/4701695210359611294"
                   className="flex items-center justify-center space-x-3 px-8 py-5 rounded-2xl transition-all duration-300 font-semibold text-base shadow-xl"
                   style={{
                     backgroundColor: '#FFFFFF',
