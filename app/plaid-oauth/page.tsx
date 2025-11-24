@@ -1,9 +1,9 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 
-export default function PlaidOAuthRedirect() {
+function PlaidOAuthContent() {
   const searchParams = useSearchParams();
 
   useEffect(() => {
@@ -109,5 +109,41 @@ export default function PlaidOAuthRedirect() {
         }
       `}</style>
     </div>
+  );
+}
+
+export default function PlaidOAuthRedirect() {
+  return (
+    <Suspense fallback={
+      <div style={{
+        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        minHeight: '100vh',
+        padding: '20px',
+        backgroundColor: '#000000',
+        color: '#ffffff',
+        textAlign: 'center'
+      }}>
+        <div style={{
+          width: '40px',
+          height: '40px',
+          border: '3px solid #333',
+          borderTop: '3px solid #D4AF37',
+          borderRadius: '50%',
+          animation: 'spin 1s linear infinite'
+        }}></div>
+        <style jsx>{`
+          @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+          }
+        `}</style>
+      </div>
+    }>
+      <PlaidOAuthContent />
+    </Suspense>
   );
 }
