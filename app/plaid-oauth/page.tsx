@@ -14,7 +14,6 @@ export default function PlaidOAuthRedirect() {
     const appUrl = `receiptgold://plaid-oauth?${params.toString()}`;
 
     // Log for debugging
-    console.log('Redirecting to app:', appUrl);
 
     // Attempt to redirect to the app
     // iOS will intercept this and open the app via universal link
@@ -52,7 +51,7 @@ export default function PlaidOAuthRedirect() {
           marginBottom: '16px',
           color: '#D4AF37'
         }}>
-          Redirecting to ReceiptGold...
+          {`Redirecting to ReceiptGold...`}
         </h1>
 
         <div style={{
@@ -60,7 +59,7 @@ export default function PlaidOAuthRedirect() {
           color: '#999',
           marginBottom: '32px'
         }}>
-          Please wait while we redirect you back to the app.
+          {`Please wait while we redirect you back to the app.`}
         </div>
 
         {/* Loading indicator */}
@@ -87,7 +86,7 @@ export default function PlaidOAuthRedirect() {
             marginBottom: '16px',
             color: '#ccc'
           }}>
-            If you're not redirected automatically:
+            {`If you're not redirected automatically:`}
           </p>
           <ol style={{
             textAlign: 'left',
@@ -96,8 +95,8 @@ export default function PlaidOAuthRedirect() {
             lineHeight: '1.6',
             paddingLeft: '20px'
           }}>
-            <li>Open the ReceiptGold app manually</li>
-            <li>Your bank connection should be complete</li>
+            <li>{`Open the ReceiptGold app manually`}</li>
+            <li>{`Your bank connection should be complete`}</li>
           </ol>
         </div>
       </div>
