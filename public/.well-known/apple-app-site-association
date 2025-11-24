@@ -1,0 +1,11 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "UGZ3U996YX.com.receiptgold.app",
+        "paths": ["/plaid-oauth", "/plaid-oauth/*"]
+      }
+    ]
+  }
+}
