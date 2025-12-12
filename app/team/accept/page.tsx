@@ -79,21 +79,64 @@ function TeamAcceptContent() {
     setError(null);
 
     try {
+      // Import encryption utils dynamically
+      const { generateKeyPair, exportPublicKey, hybridDecrypt, hybridEncrypt, importPemKey } = await import('../../../lib/encryption');
+      
+      // 1. Generate Ephemeral Keys (for Response)
+      const keyPair = await generateKeyPair();
+      const clientPublicKeyString = await exportPublicKey(keyPair.publicKey);
+
+      // 2. Prepare Payload
+      const payload = {
+        token: token,
+        password: formData.password,
+        displayName: formData.displayName || `${formData.firstName} ${formData.lastName}`.trim(),
+        publicKey: clientPublicKeyString, // Send Public Key for response encryption
+      };
+
+      // 3. Encrypt Payload (for Request) using Server Public Key
+      const serverPublicKeyPem = process.env.NEXT_PUBLIC_SERVER_PUBLIC_KEY;
+      if (!serverPublicKeyPem) {
+        throw new Error('Missing server public key configuration');
+      }
+
+      // We send the "publicKey" (client's) inside the encrypted package so the server knows how to reply
+      // Note: hybridEncrypt expects a Base64 SPKI key string, but importPemKey imports it to a CryptoKey.
+      // We need to pass the raw Base64 string to hybridEncrypt instead of using importPemKey.
+
+      const serverKeyBase64 = serverPublicKeyPem
+        .replace(/-----BEGIN PUBLIC KEY-----/g, '')
+        .replace(/-----END PUBLIC KEY-----/g, '')
+        .replace(/\n/g, '')
+        .trim();
+
+      const encryptedRequest = await hybridEncrypt(payload, serverKeyBase64);
+
       const response = await fetch('/api/team-invitations/accept', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          token: token,
-          password: formData.password,
-          displayName: formData.displayName || `${formData.firstName} ${formData.lastName}`.trim(),
-        }),
+        body: JSON.stringify(encryptedRequest),
       });
 
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.error || 'Failed to accept invitation');
+      }
+
+      const responseData = await response.json();
+      
+      // 4. Decrypt Response if it's encrypted
+      if (responseData.encryptedData && responseData.encryptedKey && responseData.iv) {
+        try {
+          // Decrypting...
+          await hybridDecrypt(responseData, keyPair.privateKey);
+          // Only redirect if decryption succeeds (meaning payload is valid)
+        } catch (decryptError) {
+          console.error('Decryption error:', decryptError);
+          throw new Error('Failed to process secure server response');
+        }
       }
 
       // Redirect to success page

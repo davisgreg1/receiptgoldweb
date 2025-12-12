@@ -4,6 +4,7 @@ import { getAuth } from 'firebase-admin/auth';
 import { FieldValue } from 'firebase-admin/firestore';
 import { TeamInvitation, TeamMember } from '../../../../types/team';
 import { getPermissionsForRole } from '../../../../lib/permissions';
+import { EncryptedPackage } from '../../../../lib/encryption';
 
 interface AcceptInvitationRequest {
   token: string;
@@ -13,8 +14,41 @@ interface AcceptInvitationRequest {
 
 export async function POST(request: NextRequest) {
   try {
-    const body: AcceptInvitationRequest = await request.json();
-    const { token, password, displayName } = body;
+    let body: AcceptInvitationRequest & { publicKey?: string } & Partial<EncryptedPackage> = await request.json();
+
+    // Check if body is encrypted
+    if (body.encryptedData && body.encryptedKey && body.iv) {
+      const { hybridDecrypt, importPemKey } = await import('../../../../lib/encryption');
+      const serverPrivateKeyPem = process.env.SERVER_PRIVATE_KEY;
+
+      if (!serverPrivateKeyPem) {
+        console.error('SERVER_PRIVATE_KEY not configured');
+        return NextResponse.json(
+          { error: 'Server configuration error' },
+          { status: 500 }
+        );
+      }
+
+      const serverPrivateKey = await importPemKey(serverPrivateKeyPem, 'private');
+
+      try {
+        // We know it has the EncryptedPackage properties from the check above
+        const encryptedBody: EncryptedPackage = {
+          encryptedData: body.encryptedData,
+          encryptedKey: body.encryptedKey,
+          iv: body.iv
+        };
+        body = await hybridDecrypt(encryptedBody, serverPrivateKey);
+      } catch (e) {
+        console.error('Failed to decrypt request body', e);
+        return NextResponse.json(
+          { error: 'Invalid encrypted request' },
+          { status: 400 }
+        );
+      }
+    }
+
+    const { token, password, displayName, publicKey } = body;
 
     // Validate required fields
     if (!token || !password) {
@@ -37,7 +71,7 @@ export async function POST(request: NextRequest) {
       .where('token', '==', token)
       .where('status', '==', 'pending')
       .get();
-    
+
     if (querySnapshot.empty) {
       return NextResponse.json(
         { error: 'Invalid or expired invitation' },
@@ -118,18 +152,27 @@ export async function POST(request: NextRequest) {
       updatedAt: FieldValue.serverTimestamp(),
     });
 
-    return NextResponse.json({
+    const successResponse = {
       success: true,
       userId: user.uid,
       teamMember: {
         ...teamMember,
         id: teamMemberDoc.id
       }
-    });
+    };
+
+    // Encrypt response if publicKey is provided
+    if (publicKey) {
+      const { hybridEncrypt } = await import('../../../../lib/encryption');
+      const encryptedResponse = await hybridEncrypt(successResponse, publicKey);
+      return NextResponse.json(encryptedResponse);
+    }
+
+    return NextResponse.json(successResponse);
 
   } catch (error) {
     console.error('Error accepting team invitation:', error);
-    
+
     // Handle specific Firebase Auth errors
     if (error instanceof Error) {
       if (error.message.includes('email-already-in-use')) {
