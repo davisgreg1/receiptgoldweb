@@ -269,13 +269,11 @@ export default function Home() {
             id="social-proof"
           >
             <p className="text-sm font-semibold mb-6 uppercase tracking-wider" style={{ color: theme.text.tertiary }}>
-              Trusted by Business Owners
+              Built for Business Owners
             </p>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
+            <div className="grid grid-cols-2 gap-8 max-w-2xl mx-auto justify-center">
               {[
-                { number: "10K+", label: "Active Users" },
-                { number: "500K+", label: "Receipts Scanned" },
-                { number: "4.8", label: "App Store Rating", icon: <FaStar /> },
+                { number: "5.0", label: "App Store Rating", icon: <FaStar /> },
                 { number: "99%", label: "OCR Accuracy" }
               ].map((stat, index) => (
                 <motion.div
