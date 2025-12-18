@@ -812,8 +812,8 @@ export default function Home() {
               </p>
               <div className="flex items-center space-x-2 text-xs" style={{ color: theme.text.tertiary }}>
                 <FaStar style={{ color: theme.gold.primary }} />
-                <span className="font-semibold" style={{ color: theme.text.primary }}>4.8/5</span>
-                <span>• 10K+ business owners</span>
+                <span className="font-semibold" style={{ color: theme.text.primary }}>5/5</span>
+                <span>• Built for business owners</span>
               </div>
             </div>
 
