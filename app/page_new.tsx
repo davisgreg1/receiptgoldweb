@@ -139,18 +139,6 @@ export default function Home() {
           The Ultimate Receipt Management App
         </motion.p>
 
-        {/* Coming Soon badge */}
-        <motion.div
-          className="inline-flex items-center gap-2 bg-gradient-to-r from-amber-400 to-yellow-500 text-white px-6 py-3 rounded-full text-lg font-semibold shadow-lg mb-8"
-          variants={itemVariants}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          <HiSparkles className="text-xl" />
-          Coming Soon
-          <HiSparkles className="text-xl" />
-        </motion.div>
-
         {/* Description */}
         <motion.p
           className="text-lg text-gray-600 mb-12 max-w-2xl mx-auto leading-relaxed"
