@@ -24,19 +24,19 @@ const spaceGrotesk = Space_Grotesk({
 
 export const metadata: Metadata = {
   title: "ReceiptGold - Transform Your Receipts Into Digital Gold",
-  description: "Never lose a receipt again! ReceiptGold helps you track expenses effortlessly with smart digital receipt management. Coming soon to iOS and Android.",
+  description: "Never lose a receipt again! ReceiptGold helps you track expenses effortlessly with smart digital receipt management. Download now for iOS and Android.",
   keywords: ["receipt management", "expense tracking", "digital receipts", "mobile app", "tax preparation", "business expenses"],
   authors: [{ name: "ReceiptGold Team" }],
   openGraph: {
-    title: "ReceiptGold - Coming Soon",
+    title: "ReceiptGold",
     description: "Transform your receipts into digital gold. The ultimate expense tracking app coming to iOS and Android.",
     type: "website",
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: "ReceiptGold - Coming Soon",
-    description: "Never lose a receipt again! Smart expense tracking coming soon.",
+    title: "ReceiptGold",
+    description: "Never lose a receipt again! Smart expense tracking.",
   },
 };
 
