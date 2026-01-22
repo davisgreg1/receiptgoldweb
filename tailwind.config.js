@@ -10,10 +10,26 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        background: {
+          primary: 'var(--bg-primary)',
+          secondary: 'var(--bg-secondary)',
+          tertiary: 'var(--bg-tertiary)',
+          elevated: 'var(--bg-elevated)',
+        },
+        text: {
+          primary: 'var(--text-primary)',
+          secondary: 'var(--text-secondary)',
+          tertiary: 'var(--text-tertiary)',
+          inverse: 'var(--text-inverse)',
+        },
         gold: {
-          primary: '#B8860B',
-          rich: '#8B6914',
-          muted: '#D4AF37',
+          primary: 'var(--gold-primary)',
+          rich: 'var(--gold-rich)',
+          muted: 'var(--gold-muted)',
+          background: 'var(--gold-background)',
+        },
+        border: {
+          primary: 'var(--border-primary)',
         }
       },
       fontFamily: {

@@ -52,13 +52,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${inter.variable} ${jakarta.variable} ${spaceGrotesk.variable} antialiased`}
       >
         <ThemeProvider>
           {children}
-          <Analytics/>
+          <Analytics />
         </ThemeProvider>
       </body>
     </html>
