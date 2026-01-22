@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useTheme } from "../theme/theme";
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -14,13 +13,8 @@ import {
 } from "react-icons/fa";
 
 export default function DeleteAccountPage() {
-  const { theme } = useTheme();
-
   return (
-    <div
-      className="min-h-screen transition-colors duration-300"
-      style={{ backgroundColor: theme.background.primary }}
-    >
+    <div className="min-h-screen transition-colors duration-300 bg-background-primary text-text-primary">
       {/* Header */}
       <motion.header
         initial={{ opacity: 0, y: -20 }}
@@ -42,19 +36,14 @@ export default function DeleteAccountPage() {
               />
             </div>
             <span
-              className="text-lg sm:text-2xl font-heading font-bold tracking-tight"
-              style={{ color: theme.text.primary }}
+              className="text-lg sm:text-2xl font-heading font-bold tracking-tight text-text-primary"
             >
               ReceiptGold
             </span>
           </Link>
           <Link
             href="/"
-            className="px-4 py-2 rounded-lg transition-colors duration-300"
-            style={{
-              backgroundColor: theme.gold.primary,
-              color: theme.text.inverse,
-            }}
+            className="px-4 py-2 rounded-lg transition-colors duration-300 bg-gold-primary text-text-inverse"
           >
             Back to Home
           </Link>
@@ -71,27 +60,19 @@ export default function DeleteAccountPage() {
           className="text-center mb-12"
         >
           <div
-            className="w-20 h-20 mx-auto mb-6 rounded-2xl flex items-center justify-center"
-            style={{
-              backgroundColor: theme.status?.error
-                ? theme.status.error + "20"
-                : "#ff000020",
-            }}
+            className="w-20 h-20 mx-auto mb-6 rounded-2xl flex items-center justify-center bg-status-error/10"
           >
             <FaTrashAlt
-              className="text-4xl"
-              style={{ color: theme.status?.error || "#ff0000" }}
+              className="text-4xl text-status-error"
             />
           </div>
           <h1
-            className="text-4xl sm:text-6xl font-heading font-black mb-4 tracking-tight"
-            style={{ color: theme.text.primary }}
+            className="text-4xl sm:text-6xl font-heading font-black mb-4 tracking-tight text-text-primary"
           >
             Account Deletion
           </h1>
           <p
-            className="text-lg sm:text-xl max-w-3xl mx-auto"
-            style={{ color: theme.text.secondary }}
+            className="text-lg sm:text-xl max-w-3xl mx-auto text-text-secondary"
           >
             We respect your right to delete your account and personal data at
             any time.
@@ -103,37 +84,26 @@ export default function DeleteAccountPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="mb-8 rounded-2xl border overflow-hidden"
-          style={{
-            backgroundColor: theme.background.secondary,
-            borderColor: theme.border.primary,
-          }}
+          className="mb-8 rounded-2xl border overflow-hidden bg-background-secondary border-border-primary"
         >
           <div
-            className="p-6 border-b"
-            style={{
-              backgroundColor: theme.gold.background,
-              borderColor: theme.border.primary,
-            }}
+            className="p-6 border-b bg-gold-background border-border-primary"
           >
             <div className="flex items-center space-x-4">
               <div
-                className="w-12 h-12 rounded-xl flex items-center justify-center"
-                style={{ backgroundColor: theme.gold.primary + "20" }}
+                className="w-12 h-12 rounded-xl flex items-center justify-center bg-gold-primary/20"
               >
                 <FaMobileAlt
-                  className="text-xl"
-                  style={{ color: theme.gold.primary }}
+                  className="text-xl text-gold-primary"
                 />
               </div>
               <div>
                 <h2
-                  className="text-2xl font-heading font-bold"
-                  style={{ color: theme.text.primary }}
+                  className="text-2xl font-heading font-bold text-text-primary"
                 >
                   Delete Your Account In-App
                 </h2>
-                <p className="text-sm" style={{ color: theme.text.secondary }}>
+                <p className="text-sm text-text-secondary">
                   Recommended method - fastest and most secure
                 </p>
               </div>
@@ -142,8 +112,7 @@ export default function DeleteAccountPage() {
 
           <div className="p-6">
             <p
-              className="mb-6 leading-relaxed"
-              style={{ color: theme.text.secondary }}
+              className="mb-6 leading-relaxed text-text-secondary"
             >
               You can delete your account directly from the ReceiptGold mobile
               app by following these simple steps:
@@ -166,17 +135,12 @@ export default function DeleteAccountPage() {
               ].map((item) => (
                 <li key={item.step} className="flex items-start space-x-4">
                   <div
-                    className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 mt-1 font-bold text-sm"
-                    style={{
-                      backgroundColor: theme.gold.primary,
-                      color: theme.text.inverse,
-                    }}
+                    className="w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 mt-1 font-bold text-sm bg-gold-primary text-text-inverse"
                   >
                     {item.step}
                   </div>
                   <span
-                    className="leading-relaxed pt-1"
-                    style={{ color: theme.text.secondary }}
+                    className="leading-relaxed pt-1 text-text-secondary"
                   >
                     {item.text}
                   </span>
@@ -185,22 +149,16 @@ export default function DeleteAccountPage() {
             </ol>
 
             <div
-              className="p-4 rounded-xl border-l-4"
-              style={{
-                backgroundColor: theme.gold.background,
-                borderColor: theme.gold.primary,
-              }}
+              className="p-4 rounded-xl border-l-4 bg-gold-background border-gold-primary"
             >
               <div className="flex items-start space-x-3">
                 <FaCheckCircle
-                  className="text-xl flex-shrink-0 mt-0.5"
-                  style={{ color: theme.gold.primary }}
+                  className="text-xl flex-shrink-0 mt-0.5 text-gold-primary"
                 />
                 <p
-                  className="text-sm leading-relaxed"
-                  style={{ color: theme.text.secondary }}
+                  className="text-sm leading-relaxed text-text-secondary"
                 >
-                  <strong style={{ color: theme.text.primary }}>
+                  <strong className="text-text-primary">
                     Important:
                   </strong>{" "}
                   {`If you have an active subscription, you'll be provided with instructions on how to cancel it before account deletion. Deleting your account will permanently remove all your receipts, data, and settings.`}
@@ -215,34 +173,26 @@ export default function DeleteAccountPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="mb-8 rounded-2xl border overflow-hidden"
-          style={{
-            backgroundColor: theme.background.secondary,
-            borderColor: theme.border.primary,
-          }}
+          className="mb-8 rounded-2xl border overflow-hidden bg-background-secondary border-border-primary"
         >
           <div
-            className="p-6 border-b"
-            style={{ borderColor: theme.border.primary }}
+            className="p-6 border-b border-border-primary"
           >
             <div className="flex items-center space-x-4">
               <div
-                className="w-12 h-12 rounded-xl flex items-center justify-center"
-                style={{ backgroundColor: theme.gold.background }}
+                className="w-12 h-12 rounded-xl flex items-center justify-center bg-gold-background"
               >
                 <FaEnvelope
-                  className="text-xl"
-                  style={{ color: theme.gold.primary }}
+                  className="text-xl text-gold-primary"
                 />
               </div>
               <div>
                 <h2
-                  className="text-2xl font-heading font-bold"
-                  style={{ color: theme.text.primary }}
+                  className="text-2xl font-heading font-bold text-text-primary"
                 >
                   Request Deletion via Email
                 </h2>
-                <p className="text-sm" style={{ color: theme.text.secondary }}>
+                <p className="text-sm text-text-secondary">
                   Alternative method if you need assistance
                 </p>
               </div>
@@ -251,38 +201,32 @@ export default function DeleteAccountPage() {
 
           <div className="p-6">
             <p
-              className="mb-6 leading-relaxed"
-              style={{ color: theme.text.secondary }}
+              className="mb-6 leading-relaxed text-text-secondary"
             >
               {`If you're unable to delete your account in-app or need assistance, you can request account deletion by contacting our support team:`}
             </p>
 
             <div
-              className="p-6 rounded-xl text-center mb-6"
-              style={{ backgroundColor: theme.gold.background }}
+              className="p-6 rounded-xl text-center mb-6 bg-gold-background"
             >
               <p
-                className="text-sm mb-2"
-                style={{ color: theme.text.secondary }}
+                className="text-sm mb-2 text-text-secondary"
               >
                 Email us at:
               </p>
               <a
                 href="mailto:support@receiptgold.com?subject=Account%20Deletion%20Request"
-                className="text-2xl font-bold hover:opacity-80 transition-opacity"
-                style={{ color: theme.gold.primary }}
+                className="text-2xl font-bold hover:opacity-80 transition-opacity text-gold-primary"
               >
                 support@receiptgold.com
               </a>
             </div>
 
             <div
-              className="p-4 rounded-xl"
-              style={{ backgroundColor: theme.background.primary }}
+              className="p-4 rounded-xl bg-background-primary"
             >
               <p
-                className="text-sm font-semibold mb-2"
-                style={{ color: theme.text.primary }}
+                className="text-sm font-semibold mb-2 text-text-primary"
               >
                 Please include the following in your email:
               </p>
@@ -295,14 +239,12 @@ export default function DeleteAccountPage() {
                 ].map((item, idx) => (
                   <li key={idx} className="flex items-start space-x-3">
                     <span
-                      className="mt-1 flex-shrink-0 font-bold"
-                      style={{ color: theme.gold.primary }}
+                      className="mt-1 flex-shrink-0 font-bold text-gold-primary"
                     >
                       •
                     </span>
                     <span
-                      className="text-sm leading-relaxed"
-                      style={{ color: theme.text.secondary }}
+                      className="text-sm leading-relaxed text-text-secondary"
                     >
                       {item}
                     </span>
@@ -312,8 +254,7 @@ export default function DeleteAccountPage() {
             </div>
 
             <p
-              className="mt-4 text-sm leading-relaxed"
-              style={{ color: theme.text.secondary }}
+              className="mt-4 text-sm leading-relaxed text-text-secondary"
             >
               We will process your request within 30 days and send you a
               confirmation email once your account has been deleted.
@@ -326,30 +267,22 @@ export default function DeleteAccountPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.6 }}
-          className="mb-8 rounded-2xl border overflow-hidden"
-          style={{
-            backgroundColor: theme.background.secondary,
-            borderColor: theme.border.primary,
-          }}
+          className="mb-8 rounded-2xl border overflow-hidden bg-background-secondary border-border-primary"
         >
           <div
-            className="p-6 border-b"
-            style={{ borderColor: theme.border.primary }}
+            className="p-6 border-b border-border-primary"
           >
             <div className="flex items-center space-x-4">
               <div
-                className="w-12 h-12 rounded-xl flex items-center justify-center"
-                style={{ backgroundColor: theme.gold.background }}
+                className="w-12 h-12 rounded-xl flex items-center justify-center bg-gold-background"
               >
                 <FaShieldAlt
-                  className="text-xl"
-                  style={{ color: theme.gold.primary }}
+                  className="text-xl text-gold-primary"
                 />
               </div>
               <div>
                 <h2
-                  className="text-2xl font-heading font-bold"
-                  style={{ color: theme.text.primary }}
+                  className="text-2xl font-heading font-bold text-text-primary"
                 >
                   What Data Gets Deleted
                 </h2>
@@ -359,8 +292,7 @@ export default function DeleteAccountPage() {
 
           <div className="p-6">
             <p
-              className="mb-4 leading-relaxed"
-              style={{ color: theme.text.secondary }}
+              className="mb-4 leading-relaxed text-text-secondary"
             >
               When you delete your account, the following data will be
               permanently removed:
@@ -379,14 +311,12 @@ export default function DeleteAccountPage() {
               ].map((item, idx) => (
                 <li key={idx} className="flex items-start space-x-3">
                   <span
-                    className="mt-1 flex-shrink-0 font-bold"
-                    style={{ color: theme.gold.primary }}
+                    className="mt-1 flex-shrink-0 font-bold text-gold-primary"
                   >
                     •
                   </span>
                   <span
-                    className="leading-relaxed"
-                    style={{ color: theme.text.secondary }}
+                    className="leading-relaxed text-text-secondary"
                   >
                     {item}
                   </span>
@@ -395,29 +325,20 @@ export default function DeleteAccountPage() {
             </ul>
 
             <div
-              className="mt-6 p-4 rounded-xl border-l-4"
-              style={{
-                backgroundColor: theme.status?.error
-                  ? theme.status.error + "10"
-                  : "#ff000010",
-                borderColor: theme.status?.error || "#ff0000",
-              }}
+              className="mt-6 p-4 rounded-xl border-l-4 bg-status-error/10 border-status-error"
             >
               <div className="flex items-start space-x-3">
                 <FaExclamationTriangle
-                  className="text-xl flex-shrink-0 mt-0.5"
-                  style={{ color: theme.status?.error || "#ff0000" }}
+                  className="text-xl flex-shrink-0 mt-0.5 text-status-error"
                 />
                 <div>
                   <p
-                    className="text-sm font-semibold mb-2"
-                    style={{ color: theme.text.primary }}
+                    className="text-sm font-semibold mb-2 text-text-primary"
                   >
                     This action is irreversible!
                   </p>
                   <p
-                    className="text-sm leading-relaxed"
-                    style={{ color: theme.text.secondary }}
+                    className="text-sm leading-relaxed text-text-secondary"
                   >
                     Once your account is deleted, all your data will be
                     permanently removed from our servers within 30 days and
@@ -435,43 +356,31 @@ export default function DeleteAccountPage() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.8 }}
-          className="p-8 rounded-2xl text-center border-t"
-          style={{ borderColor: theme.border.primary }}
+          className="p-8 rounded-2xl text-center border-t border-border-primary"
         >
           <div className="flex justify-center mb-4">
             <FaShieldAlt
-              className="text-3xl"
-              style={{ color: theme.gold.primary }}
+              className="text-3xl text-gold-primary"
             />
           </div>
           <h3
-            className="text-2xl font-heading font-bold mb-2"
-            style={{ color: theme.text.primary }}
+            className="text-2xl font-heading font-bold mb-2 text-text-primary"
           >
             Questions about account deletion?
           </h3>
-          <p className="text-lg mb-6" style={{ color: theme.text.secondary }}>
+          <p className="text-lg mb-6 text-text-secondary">
             Contact our support team at support@receiptgold.com
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/privacy-policy"
-              className="inline-block px-6 py-3 rounded-xl font-semibold transition-all duration-300 hover:scale-105"
-              style={{
-                backgroundColor: theme.background.secondary,
-                color: theme.text.primary,
-                border: `1px solid ${theme.border.primary}`,
-              }}
+              className="inline-block px-6 py-3 rounded-xl font-semibold transition-all duration-300 hover:scale-105 bg-background-secondary text-text-primary border border-border-primary"
             >
               View Privacy Policy
             </Link>
             <Link
               href="/"
-              className="inline-block px-6 py-3 rounded-xl font-semibold transition-all duration-300 hover:scale-105"
-              style={{
-                backgroundColor: theme.gold.primary,
-                color: theme.text.inverse,
-              }}
+              className="inline-block px-6 py-3 rounded-xl font-semibold transition-all duration-300 hover:scale-105 bg-gold-primary text-text-inverse"
             >
               Back to Home
             </Link>
@@ -481,31 +390,27 @@ export default function DeleteAccountPage() {
 
       {/* Footer */}
       <footer
-        className="py-8 text-center px-4 border-t"
-        style={{ borderColor: theme.border.primary }}
+        className="py-8 text-center px-4 border-t border-border-primary"
       >
-        <p className="text-sm" style={{ color: theme.text.secondary }}>
+        <p className="text-sm text-text-secondary">
           © 2025 ReceiptGold. All rights reserved.
         </p>
         <div className="flex justify-center space-x-6 mt-4">
           <Link
             href="/privacy-policy"
-            className="text-sm hover:opacity-80 transition-opacity"
-            style={{ color: theme.gold.primary }}
+            className="text-sm hover:opacity-80 transition-opacity text-gold-primary"
           >
             Privacy Policy
           </Link>
           <Link
             href="/terms"
-            className="text-sm hover:opacity-80 transition-opacity"
-            style={{ color: theme.gold.primary }}
+            className="text-sm hover:opacity-80 transition-opacity text-gold-primary"
           >
             Terms of Service
           </Link>
           <Link
             href="/delete-account"
-            className="text-sm hover:opacity-80 transition-opacity"
-            style={{ color: theme.gold.primary }}
+            className="text-sm hover:opacity-80 transition-opacity text-gold-primary"
           >
             Delete Account
           </Link>

@@ -674,7 +674,6 @@ const policySections: PolicySection[] = [
 ];
 
 export default function PrivacyPolicyPage() {
-  const { theme } = useTheme();
   const [expandedSection, setExpandedSection] = useState<string | null>('1');
 
   const toggleSection = (id: string) => {
@@ -682,10 +681,7 @@ export default function PrivacyPolicyPage() {
   };
 
   return (
-    <div
-      className="min-h-screen transition-colors duration-300"
-      style={{ backgroundColor: theme.background.primary }}
-    >
+    <div className="min-h-screen transition-colors duration-300 bg-background-primary">
       {/* Header */}
       <motion.header
         initial={{ opacity: 0, y: -20 }}
@@ -703,20 +699,13 @@ export default function PrivacyPolicyPage() {
                 className="object-contain rounded-lg"
               />
             </div>
-            <span
-              className="text-lg sm:text-2xl font-heading font-bold tracking-tight"
-              style={{ color: theme.text.primary }}
-            >
+            <span className="text-lg sm:text-2xl font-heading font-bold tracking-tight text-text-primary">
               ReceiptGold
             </span>
           </Link>
           <Link
             href="/"
-            className="px-4 py-2 rounded-lg transition-colors duration-300"
-            style={{
-              backgroundColor: theme.gold.primary,
-              color: theme.text.inverse
-            }}
+            className="px-4 py-2 rounded-lg transition-colors duration-300 bg-gold-primary text-text-inverse"
           >
             Back to Home
           </Link>
@@ -732,36 +721,18 @@ export default function PrivacyPolicyPage() {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <div
-            className="w-20 h-20 mx-auto mb-6 rounded-2xl flex items-center justify-center"
-            style={{ backgroundColor: theme.gold.background }}
-          >
-            <FaShieldAlt
-              className="text-4xl"
-              style={{ color: theme.gold.primary }}
-            />
+          <div className="w-20 h-20 mx-auto mb-6 rounded-2xl flex items-center justify-center bg-gold-background">
+            <FaShieldAlt className="text-4xl text-gold-primary" />
           </div>
-          <h1
-            className="text-4xl sm:text-6xl font-heading font-black mb-4 tracking-tight"
-            style={{ color: theme.text.primary }}
-          >
+          <h1 className="text-4xl sm:text-6xl font-heading font-black mb-4 tracking-tight text-text-primary">
             Privacy Policy
           </h1>
-          <p
-            className="text-lg sm:text-xl mb-6 max-w-3xl mx-auto"
-            style={{ color: theme.text.secondary }}
-          >
+          <p className="text-lg sm:text-xl mb-6 max-w-3xl mx-auto text-text-secondary">
             Your privacy is important to us. This policy explains how we collect, use, and protect your information.
           </p>
-          <div
-            className="inline-flex items-center space-x-2 px-4 py-2 rounded-full"
-            style={{ backgroundColor: theme.background.secondary }}
-          >
-            <FaClock style={{ color: theme.text.secondary }} />
-            <span
-              className="text-sm font-medium"
-              style={{ color: theme.text.secondary }}
-            >
+          <div className="inline-flex items-center space-x-2 px-4 py-2 rounded-full bg-background-secondary">
+            <FaClock className="text-text-secondary" />
+            <span className="text-sm font-medium text-text-secondary">
               Last updated: October 1, 2025
             </span>
           </div>
@@ -774,31 +745,21 @@ export default function PrivacyPolicyPage() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="mb-12"
         >
-          <h2
-            className="text-2xl font-heading font-bold mb-4"
-            style={{ color: theme.text.primary }}
-          >
+          <h2 className="text-2xl font-heading font-bold mb-4 text-text-primary">
             Quick Navigation
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {policySections.map((section) => {
               const IconComponent = section.icon;
+              const isActive = expandedSection === section.id;
               return (
                 <button
                   key={section.id}
                   onClick={() => toggleSection(section.id)}
-                  className="flex items-center space-x-2 px-4 py-3 rounded-xl transition-all duration-300 border"
-                  style={{
-                    backgroundColor: expandedSection === section.id
-                      ? theme.gold.primary
-                      : theme.background.secondary,
-                    borderColor: expandedSection === section.id
-                      ? theme.gold.primary
-                      : theme.border.primary,
-                    color: expandedSection === section.id
-                      ? theme.text.inverse
-                      : theme.text.primary
-                  }}
+                  className={`flex items-center space-x-2 px-4 py-3 rounded-xl transition-all duration-300 border ${isActive
+                      ? 'bg-gold-primary border-gold-primary text-text-inverse'
+                      : 'bg-background-secondary border-border-primary text-text-primary'
+                    }`}
                 >
                   <IconComponent className="flex-shrink-0" />
                   <span className="text-sm font-medium text-left line-clamp-2">
@@ -820,45 +781,28 @@ export default function PrivacyPolicyPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.3 + index * 0.1 }}
-                className="rounded-2xl border overflow-hidden"
-                style={{
-                  backgroundColor: theme.background.secondary,
-                  borderColor: theme.border.primary
-                }}
+                className="rounded-2xl border overflow-hidden bg-background-secondary border-border-primary"
               >
                 <button
                   onClick={() => toggleSection(section.id)}
                   className="w-full flex items-center justify-between p-6 hover:opacity-80 transition-opacity"
                 >
                   <div className="flex items-center space-x-4">
-                    <div
-                      className="w-12 h-12 rounded-xl flex items-center justify-center"
-                      style={{ backgroundColor: theme.gold.background }}
-                    >
-                      <IconComponent
-                        className="text-xl"
-                        style={{ color: theme.gold.primary }}
-                      />
+                    <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-gold-background">
+                      <IconComponent className="text-xl text-gold-primary" />
                     </div>
                     <div className="text-left">
-                      <div
-                        className="text-sm font-semibold mb-1"
-                        style={{ color: theme.text.tertiary }}
-                      >
+                      <div className="text-sm font-semibold mb-1 text-text-tertiary">
                         {String(index + 1).padStart(2, '0')}
                       </div>
-                      <h3
-                        className="text-xl font-heading font-bold"
-                        style={{ color: theme.text.primary }}
-                      >
+                      <h3 className="text-xl font-heading font-bold text-text-primary">
                         {section.title}
                       </h3>
                     </div>
                   </div>
                   <div
-                    className="text-2xl transition-transform duration-300"
+                    className="text-2xl transition-transform duration-300 text-text-secondary"
                     style={{
-                      color: theme.text.secondary,
                       transform: expandedSection === section.id ? 'rotate(180deg)' : 'rotate(0deg)'
                     }}
                   >
@@ -872,16 +816,14 @@ export default function PrivacyPolicyPage() {
                     animate={{ opacity: 1, height: 'auto' }}
                     exit={{ opacity: 0, height: 0 }}
                     transition={{ duration: 0.3 }}
-                    className="px-6 pb-6 border-t"
-                    style={{ borderColor: theme.border.primary }}
+                    className="px-6 pb-6 border-t border-border-primary"
                   >
                     {section.content.map((item, idx) => {
                       if (item.type === 'header') {
                         return (
                           <h4
                             key={idx}
-                            className="text-lg font-bold mt-6 mb-3"
-                            style={{ color: theme.text.primary }}
+                            className="text-lg font-bold mt-6 mb-3 text-text-primary"
                           >
                             {item.text}
                           </h4>
@@ -890,8 +832,7 @@ export default function PrivacyPolicyPage() {
                         return (
                           <p
                             key={idx}
-                            className="mb-4 leading-relaxed"
-                            style={{ color: theme.text.secondary }}
+                            className="mb-4 leading-relaxed text-text-secondary"
                           >
                             {item.text}
                           </p>
@@ -904,16 +845,10 @@ export default function PrivacyPolicyPage() {
                                 key={listIdx}
                                 className="flex items-start space-x-3"
                               >
-                                <span
-                                  className="mt-1 flex-shrink-0 font-bold"
-                                  style={{ color: theme.gold.primary }}
-                                >
+                                <span className="mt-1 flex-shrink-0 font-bold text-gold-primary">
                                   •
                                 </span>
-                                <span
-                                  className="leading-relaxed"
-                                  style={{ color: theme.text.secondary }}
-                                >
+                                <span className="leading-relaxed text-text-secondary">
                                   {listItem}
                                 </span>
                               </li>
@@ -935,34 +870,20 @@ export default function PrivacyPolicyPage() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.8 }}
-          className="mt-12 p-8 rounded-2xl text-center border-t"
-          style={{ borderColor: theme.border.primary }}
+          className="mt-12 p-8 rounded-2xl text-center border-t border-border-primary"
         >
           <div className="flex justify-center mb-4">
-            <FaShieldAlt
-              className="text-3xl"
-              style={{ color: theme.gold.primary }}
-            />
+            <FaShieldAlt className="text-3xl text-gold-primary" />
           </div>
-          <h3
-            className="text-2xl font-heading font-bold mb-2"
-            style={{ color: theme.text.primary }}
-          >
+          <h3 className="text-2xl font-heading font-bold mb-2 text-text-primary">
             Questions about your privacy?
           </h3>
-          <p
-            className="text-lg mb-6"
-            style={{ color: theme.text.secondary }}
-          >
+          <p className="text-lg mb-6 text-text-secondary">
             Contact us anytime at privacy@receiptgold.com
           </p>
           <Link
             href="/"
-            className="inline-block px-6 py-3 rounded-xl font-semibold transition-all duration-300 hover:scale-105"
-            style={{
-              backgroundColor: theme.gold.primary,
-              color: theme.text.inverse
-            }}
+            className="inline-block px-6 py-3 rounded-xl font-semibold transition-all duration-300 hover:scale-105 bg-gold-primary text-text-inverse"
           >
             Back to Home
           </Link>
@@ -970,28 +891,20 @@ export default function PrivacyPolicyPage() {
       </main>
 
       {/* Footer */}
-      <footer
-        className="py-8 text-center px-4 border-t"
-        style={{ borderColor: theme.border.primary }}
-      >
-        <p
-          className="text-sm"
-          style={{ color: theme.text.secondary }}
-        >
+      <footer className="py-8 text-center px-4 border-t border-border-primary">
+        <p className="text-sm text-text-secondary">
           © 2025 ReceiptGold. All rights reserved.
         </p>
         <div className="flex justify-center space-x-6 mt-4">
           <Link
             href="/privacy-policy"
-            className="text-sm hover:opacity-80 transition-opacity"
-            style={{ color: theme.gold.primary }}
+            className="text-sm hover:opacity-80 transition-opacity text-gold-primary"
           >
             Privacy Policy
           </Link>
           <Link
             href="/terms"
-            className="text-sm hover:opacity-80 transition-opacity"
-            style={{ color: theme.gold.primary }}
+            className="text-sm hover:opacity-80 transition-opacity text-gold-primary"
           >
             Terms of Service
           </Link>
