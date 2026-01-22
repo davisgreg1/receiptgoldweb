@@ -12,7 +12,7 @@ export default function Home() {
   const { theme, themeMode, toggleTheme } = useTheme();
 
   return (
-    <div 
+    <div
       className="min-h-screen transition-colors duration-300"
       style={{ backgroundColor: theme.background.primary }}
     >
@@ -689,7 +689,7 @@ export default function Home() {
                 className="text-lg sm:text-xl mb-8 sm:mb-10 opacity-95 font-display max-w-2xl mx-auto"
                 style={{ color: theme.text.inverse }}
               >
-                Join thousands of business owners who trust ReceiptGold for their expense tracking
+                Join other business owners who trust ReceiptGold for their expense tracking
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
@@ -874,9 +874,9 @@ export default function Home() {
             style={{ borderColor: theme.border.primary }}
           >
             <p className="text-sm" style={{ color: theme.text.tertiary }}>
-              © 2025 ReceiptGold by{' '}
+              © {new Date().getFullYear()} ReceiptGold by{' '}
               <a
-                href="https://www.gregdavistech.com"
+                href="https://business.gregdavistech.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:opacity-70 transition-opacity"
