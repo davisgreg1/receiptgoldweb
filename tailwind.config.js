@@ -30,6 +30,12 @@ module.exports = {
         },
         border: {
           primary: 'var(--border-primary)',
+        },
+        status: {
+          error: 'var(--status-error, #EF4444)',
+          success: 'var(--status-success, #22C55E)',
+          warning: 'var(--status-warning, #F59E0B)',
+          info: 'var(--status-info, #3B82F6)',
         }
       },
       fontFamily: {

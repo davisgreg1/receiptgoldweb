@@ -4,16 +4,11 @@ import { motion } from 'framer-motion';
 import { FaReceipt, FaCheckCircle, FaUsers, FaDownload } from 'react-icons/fa';
 import { HiSparkles } from 'react-icons/hi';
 import { BsPhone } from 'react-icons/bs';
-import { useTheme } from '../theme/theme';
+import Link from 'next/link';
 
 export default function TeamWelcomePage() {
-  const { theme } = useTheme();
-
   return (
-    <div 
-      className="min-h-screen flex items-center justify-center p-4"
-      style={{ backgroundColor: theme.background.primary }}
-    >
+    <div className="min-h-screen flex items-center justify-center p-4 bg-background-primary">
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -28,27 +23,20 @@ export default function TeamWelcomePage() {
           className="mb-8 flex justify-center"
         >
           <div className="relative">
-            <div 
-              className="w-32 h-32 rounded-full flex items-center justify-center"
-              style={{ 
-                backgroundImage: `linear-gradient(135deg, ${theme.gold.primary}, ${theme.gold.rich})`,
-                boxShadow: theme.shadow.large
+            <div
+              className="w-32 h-32 rounded-full flex items-center justify-center shadow-large"
+              style={{
+                backgroundImage: `linear-gradient(135deg, var(--gold-primary), var(--gold-rich))`
               }}
             >
-              <FaCheckCircle 
-                className="text-6xl" 
-                style={{ color: theme.text.inverse }}
-              />
+              <FaCheckCircle className="text-6xl text-text-inverse" />
             </div>
             <motion.div
               animate={{ rotate: 360 }}
               transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
               className="absolute -top-2 -right-2"
             >
-              <HiSparkles 
-                className="text-3xl" 
-                style={{ color: theme.gold.primary }}
-              />
+              <HiSparkles className="text-3xl text-gold-primary" />
             </motion.div>
           </div>
         </motion.div>
@@ -60,16 +48,10 @@ export default function TeamWelcomePage() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="mb-12"
         >
-          <h1 
-            className="text-4xl sm:text-5xl font-bold mb-4"
-            style={{ color: theme.text.primary }}
-          >
+          <h1 className="text-4xl sm:text-5xl font-bold mb-4 text-text-primary">
             Welcome to the Team! 🎉
           </h1>
-          <p 
-            className="text-xl mb-8"
-            style={{ color: theme.text.secondary }}
-          >
+          <p className="text-xl mb-8 text-text-secondary">
             You&apos;ve successfully joined the ReceiptGold team. Start tracking your business expenses right away!
           </p>
         </motion.div>
@@ -79,21 +61,11 @@ export default function TeamWelcomePage() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="p-8 rounded-3xl mb-8"
-          style={{ 
-            backgroundColor: theme.background.elevated,
-            boxShadow: theme.shadow.large 
-          }}
+          className="p-8 rounded-3xl mb-8 bg-background-elevated shadow-large"
         >
           <div className="flex items-center justify-center mb-6">
-            <FaUsers 
-              className="text-3xl mr-3"
-              style={{ color: theme.gold.primary }}
-            />
-            <h2 
-              className="text-2xl font-bold"
-              style={{ color: theme.text.primary }}
-            >
+            <FaUsers className="text-3xl mr-3 text-gold-primary" />
+            <h2 className="text-2xl font-bold text-text-primary">
               What&apos;s Next?
             </h2>
           </div>
@@ -107,7 +79,7 @@ export default function TeamWelcomePage() {
               },
               {
                 icon: <FaReceipt className="text-2xl" />,
-                title: "Start Adding Receipts", 
+                title: "Start Adding Receipts",
                 description: "Begin tracking your business expenses for your assigned company"
               }
             ].map((step, index) => (
@@ -116,28 +88,15 @@ export default function TeamWelcomePage() {
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
-                className="p-6 rounded-2xl text-center"
-                style={{ 
-                  backgroundColor: theme.background.secondary,
-                  border: `1px solid ${theme.border.primary}`
-                }}
+                className="p-6 rounded-2xl text-center bg-background-secondary border border-border-primary"
               >
-                <div 
-                  className="mb-4 flex justify-center"
-                  style={{ color: theme.gold.primary }}
-                >
+                <div className="mb-4 flex justify-center text-gold-primary">
                   {step.icon}
                 </div>
-                <h3 
-                  className="text-lg font-semibold mb-2"
-                  style={{ color: theme.text.primary }}
-                >
+                <h3 className="text-lg font-semibold mb-2 text-text-primary">
                   {step.title}
                 </h3>
-                <p 
-                  className="text-sm"
-                  style={{ color: theme.text.secondary }}
-                >
+                <p className="text-sm text-text-secondary">
                   {step.description}
                 </p>
               </motion.div>
@@ -152,23 +111,19 @@ export default function TeamWelcomePage() {
           transition={{ duration: 0.6, delay: 0.8 }}
           className="space-y-4"
         >
-          <h3 
-            className="text-xl font-semibold mb-6"
-            style={{ color: theme.text.primary }}
-          >
+          <h3 className="text-xl font-semibold mb-6 text-text-primary">
             Download ReceiptGold
           </h3>
-          
+
           <div className="flex flex-col space-y-4 max-w-md mx-auto">
             <motion.a
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
               href="https://apps.apple.com/us/app/receiptgold/id6751426301"
-              className="flex items-center space-x-3 px-6 py-4 rounded-2xl transition-all duration-300"
-              style={{ 
+              className="flex items-center space-x-3 px-6 py-4 rounded-2xl transition-all duration-300 shadow-large"
+              style={{
                 backgroundColor: '#000000',
-                color: '#FFFFFF',
-                boxShadow: theme.shadow.large
+                color: '#FFFFFF'
               }}
             >
               <FaDownload className="text-2xl" />
@@ -182,11 +137,10 @@ export default function TeamWelcomePage() {
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
               href="https://play.google.com/store/apps/details?id=com.receiptgold.app"
-              className="flex items-center space-x-3 px-6 py-4 rounded-2xl transition-all duration-300"
-              style={{ 
+              className="flex items-center space-x-3 px-6 py-4 rounded-2xl transition-all duration-300 shadow-large"
+              style={{
                 backgroundImage: 'linear-gradient(135deg, #34C759, #007AFF)',
-                color: '#FFFFFF',
-                boxShadow: theme.shadow.large
+                color: '#FFFFFF'
               }}
             >
               <FaDownload className="text-2xl" />
@@ -203,22 +157,12 @@ export default function TeamWelcomePage() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 1.0 }}
-          className="mt-12 p-6 rounded-2xl"
-          style={{ 
-            backgroundColor: theme.background.secondary,
-            border: `1px solid ${theme.border.primary}`
-          }}
+          className="mt-12 p-6 rounded-2xl bg-background-secondary border border-border-primary"
         >
-          <p 
-            className="text-sm"
-            style={{ color: theme.text.secondary }}
-          >
+          <p className="text-sm text-text-secondary">
             Need help getting started? Contact your team administrator or reach out to our support team.
           </p>
-          <p 
-            className="text-xs mt-2"
-            style={{ color: theme.text.tertiary }}
-          >
+          <p className="text-xs mt-2 text-text-tertiary">
             You can now close this browser window and use the mobile app to access your account.
           </p>
         </motion.div>
@@ -231,11 +175,8 @@ export default function TeamWelcomePage() {
           className="mt-8"
         >
           <div className="flex items-center justify-center space-x-2">
-            <FaReceipt style={{ color: theme.gold.primary }} />
-            <span 
-              className="font-medium text-sm"
-              style={{ color: theme.gold.primary }}
-            >
+            <FaReceipt className="text-gold-primary" />
+            <span className="font-medium text-sm text-gold-primary">
               ReceiptGold - Transform Your Business Receipts Into Digital Gold
             </span>
           </div>
