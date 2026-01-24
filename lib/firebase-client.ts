@@ -1,8 +1,8 @@
-import { initializeApp, getApps, getApp } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
-import { getStorage } from 'firebase/storage';
-import { getAnalytics, isSupported } from 'firebase/analytics';
+import { initializeApp, getApps, getApp, FirebaseApp } from 'firebase/app';
+import { getAuth, Auth } from 'firebase/auth';
+import { getFirestore, Firestore } from 'firebase/firestore';
+import { getStorage, FirebaseStorage } from 'firebase/storage';
+import { getAnalytics, isSupported, Analytics } from 'firebase/analytics';
 
 // Determine environment - defaults to production
 // Set NEXT_PUBLIC_ENVIRONMENT=staging or VERCEL_ENV=preview to use staging
@@ -41,11 +41,11 @@ console.log(`📦 Project ID: ${firebaseConfig.projectId}`);
 console.log(`🔑 Auth Domain: ${firebaseConfig.authDomain}`);
 
 // Initialize Firebase (client-side only)
-let app;
-let auth;
-let db;
-let storage;
-let analytics;
+let app: FirebaseApp | undefined;
+let auth: Auth | undefined;
+let db: Firestore | undefined;
+let storage: FirebaseStorage | undefined;
+let analytics: Analytics | undefined;
 
 if (typeof window !== 'undefined') {
   // Only initialize on client-side
