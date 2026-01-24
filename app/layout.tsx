@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Analytics } from "@vercel/analytics/next"
 import { Inter, Plus_Jakarta_Sans, Space_Grotesk } from "next/font/google";
 import { ThemeProvider } from "./theme/theme";
+import { ReactQueryProvider } from "@/components/providers/query-provider";
 import "./globals.css";
 
 const inter = Inter({
@@ -57,8 +58,10 @@ export default function RootLayout({
         className={`${inter.variable} ${jakarta.variable} ${spaceGrotesk.variable} antialiased`}
       >
         <ThemeProvider>
-          {children}
-          <Analytics />
+          <ReactQueryProvider>
+            {children}
+            <Analytics />
+          </ReactQueryProvider>
         </ThemeProvider>
       </body>
     </html>

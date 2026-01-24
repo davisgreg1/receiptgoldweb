@@ -1,12 +1,13 @@
 import { initializeApp, getApps, cert } from 'firebase-admin/app';
 import { getFirestore } from 'firebase-admin/firestore';
+import { getAuth } from 'firebase-admin/auth';
 
 // Determine environment - defaults to production
 // Set NEXT_PUBLIC_ENVIRONMENT=staging or VERCEL_ENV=preview to use staging
 const environment = process.env.NEXT_PUBLIC_ENVIRONMENT === 'staging' ||
-                   process.env.VERCEL_ENV === 'preview'
-                   ? 'staging'
-                   : 'production';
+  process.env.VERCEL_ENV === 'preview'
+  ? 'staging'
+  : 'production';
 
 // Select environment-specific credentials
 const projectId = environment === 'staging'
@@ -58,3 +59,4 @@ if (!getApps().length) {
 }
 
 export const adminDb = getFirestore();
+export const adminAuth = getAuth();
