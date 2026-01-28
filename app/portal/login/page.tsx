@@ -7,7 +7,7 @@ import { auth } from '@/lib/firebase-client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import Link from 'next/link';
 import { Loader2, ArrowLeft } from 'lucide-react';
 import { FcGoogle } from 'react-icons/fc';
@@ -69,7 +69,7 @@ export default function PortalLoginPage() {
             router.push('/portal/dashboard');
         } catch (err) {
             console.error(`${providerName} login error:`, err);
-            setError(`Failed to sign in with ${providerName}.`);
+            setError(`Failed to sign in with ${providerName.charAt(0).toUpperCase() + providerName.slice(1)}.`);
         } finally {
             setLoading(false);
         }

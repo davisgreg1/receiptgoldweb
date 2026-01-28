@@ -121,7 +121,7 @@ export function PortalSidebar({ user }: PortalSidebarProps) {
                             </span>
                         </div>
                     </div>
-                    <Button variant="outline" className="w-full justify-start gap-2" onClick={handleSignOut}>
+                    <Button variant="outline" className="text-muted-foreground transition-all hover:text-primary w-full justify-start gap-2" onClick={handleSignOut}>
                         <LogOut className="h-4 w-4" />
                         Sign out
                     </Button>

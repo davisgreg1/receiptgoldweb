@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { adminDb } from '../../../../lib/firebase-admin';
-import { TeamInvitation } from '../../../../types/team';
+import { adminDb } from '@/lib/firebase-admin';
+import { TeamInvitation } from '@/types/team';
 
 export async function GET(request: NextRequest) {
   try {
@@ -20,7 +20,7 @@ export async function GET(request: NextRequest) {
       .where('token', '==', token)
       .where('status', '==', 'pending')
       .get();
-    
+
     if (querySnapshot.empty) {
       return NextResponse.json(
         { error: 'Invalid or expired invitation' },
@@ -30,7 +30,7 @@ export async function GET(request: NextRequest) {
 
     const doc = querySnapshot.docs[0];
     const data = doc.data();
-    
+
     const invitation: TeamInvitation = {
       id: doc.id,
       accountHolderId: data.accountHolderId,

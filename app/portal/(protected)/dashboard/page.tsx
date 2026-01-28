@@ -1,12 +1,25 @@
 'use client';
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Plus } from 'lucide-react';
 import { auth } from '@/lib/firebase-client';
+import { useSubscription } from '@/hooks/useSubscription';
+import { useReceiptsCount } from '@/hooks/useReceiptsCount';
+import { useMonthlySpend } from '@/hooks/useMonthlySpend';
+import { cn } from '@/lib/utils';
+import { useTeamMembersCount } from '@/hooks/useTeamMembersCount';
+import { RecentReceipts } from '@/components/dashboard/recent-receipts';
+import { ExpenseCategories } from '@/components/dashboard/expense-categories';
 
 export default function DashboardPage() {
     const user = auth?.currentUser;
+    console.log("🚀 ~ DashboardPage ~ user:", user)
+    const { data: subscription } = useSubscription(user?.uid);
+    const { count: receiptsCount, isLoading: isReceiptsLoading } = useReceiptsCount(user?.uid);
+    const { spend: monthlySpend, isLoading: isSpendLoading } = useMonthlySpend(user?.uid);
+    const { count: teamMembersCount, isLoading: isTeamLoading } = useTeamMembersCount(user?.uid);
+    console.log("🚀 ~ DashboardPage ~ data:", subscription)
+    const tier = subscription?.tier;
+    const status = subscription?.wasDeleted ? 'Cancelled' : 'Active';
 
     return (
         <div className="space-y-6">
@@ -14,9 +27,6 @@ export default function DashboardPage() {
                 <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
                 <div className="flex items-center gap-2">
                     {/* Placeholder for actions */}
-                    <Button>
-                        <Plus className="mr-2 h-4 w-4" /> New Receipt
-                    </Button>
                 </div>
             </div>
 
@@ -42,10 +52,9 @@ export default function DashboardPage() {
                         </svg>
                     </CardHeader>
                     <CardContent>
-                        <div className="text-2xl font-bold">128</div>
-                        <p className="text-xs text-muted-foreground">
-                            +12 from last month
-                        </p>
+                        <div className="text-2xl font-bold">
+                            {isReceiptsLoading ? '...' : receiptsCount ?? 0}
+                        </div>
                     </CardContent>
                 </Card>
                 <Card>
@@ -68,10 +77,12 @@ export default function DashboardPage() {
                         </svg>
                     </CardHeader>
                     <CardContent>
-                        <div className="text-2xl font-bold">$2,350.00</div>
-                        <p className="text-xs text-muted-foreground">
-                            +19% from last month
-                        </p>
+                        <div className="text-2xl font-bold">
+                            {isSpendLoading ? '...' : monthlySpend !== null
+                                ? new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(monthlySpend)
+                                : '$0.00'
+                            }
+                        </div>
                     </CardContent>
                 </Card>
                 <Card>
@@ -91,9 +102,9 @@ export default function DashboardPage() {
                         </svg>
                     </CardHeader>
                     <CardContent>
-                        <div className="text-2xl font-bold">Pro Plan</div>
-                        <p className="text-xs text-muted-foreground">
-                            Active until Oct 2026
+                        <div className="text-2xl font-bold capitalize">{tier}</div>
+                        <p className={cn("text-xs text-muted-foreground", status === 'Cancelled' && "text-red-500")}>
+                            {status}
                         </p>
                     </CardContent>
                 </Card>
@@ -118,7 +129,9 @@ export default function DashboardPage() {
                         </svg>
                     </CardHeader>
                     <CardContent>
-                        <div className="text-2xl font-bold">3</div>
+                        <div className="text-2xl font-bold">
+                            {isTeamLoading ? '...' : teamMembersCount ?? 1}
+                        </div>
                         <p className="text-xs text-muted-foreground">
                             Includes yourself
                         </p>
@@ -127,26 +140,8 @@ export default function DashboardPage() {
             </div>
 
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-                <Card className="col-span-full md:col-span-1 lg:col-span-4">
-                    <CardHeader>
-                        <CardTitle>Recent Receipts</CardTitle>
-                    </CardHeader>
-                    <CardContent className="pl-2">
-                        <div className="flex h-[350px] items-center justify-center text-muted-foreground">
-                            No recent transactions
-                        </div>
-                    </CardContent>
-                </Card>
-                <Card className="col-span-full md:col-span-1 lg:col-span-3">
-                    <CardHeader>
-                        <CardTitle>Expense Categories</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                        <div className="flex h-[350px] items-center justify-center text-muted-foreground">
-                            Chart Placeholder
-                        </div>
-                    </CardContent>
-                </Card>
+                <RecentReceipts />
+                <ExpenseCategories />
             </div>
         </div>
     );

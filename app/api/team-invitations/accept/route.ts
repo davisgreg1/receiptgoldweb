@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { adminDb } from '../../../../lib/firebase-admin';
+import { adminDb } from '@/lib/firebase-admin';
 import { getAuth } from 'firebase-admin/auth';
 import { FieldValue } from 'firebase-admin/firestore';
-import { TeamInvitation, TeamMember } from '../../../../types/team';
-import { getPermissionsForRole } from '../../../../lib/permissions';
-import { EncryptedPackage } from '../../../../lib/encryption';
+import { TeamInvitation, TeamMember } from '@/types/team';
+import { getPermissionsForRole } from '@/lib/permissions';
+import { EncryptedPackage } from '@/lib/encryption';
 
 interface AcceptInvitationRequest {
   token: string;
@@ -18,7 +18,7 @@ export async function POST(request: NextRequest) {
 
     // Check if body is encrypted
     if (body.encryptedData && body.encryptedKey && body.iv) {
-      const { hybridDecrypt, importPemKey } = await import('../../../../lib/encryption');
+      const { hybridDecrypt, importPemKey } = await import('@/lib/encryption');
       const serverPrivateKeyPem = process.env.SERVER_PRIVATE_KEY;
 
       if (!serverPrivateKeyPem) {

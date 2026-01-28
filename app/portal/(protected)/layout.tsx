@@ -9,8 +9,6 @@ import { Loader2, Menu, LayoutDashboard, Receipt, Users, LogOut, ShieldAlert } f
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { cn } from '@/lib/utils';
 import { isSuperAdmin } from '@/lib/auth-helpers';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 

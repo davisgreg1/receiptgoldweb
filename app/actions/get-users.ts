@@ -1,6 +1,6 @@
 'use server';
 
-import { adminAuth } from '@/lib/firebase-admin';
+import { adminAuth, adminDb } from '@/lib/firebase-admin';
 import { isSuperAdmin } from '@/lib/auth-helpers';
 
 interface GetUsersParams {
@@ -98,4 +98,14 @@ export async function getUsers({ idToken, page, pageSize, search, status, provid
         console.error('Error fetching users:', error);
         throw new Error('Failed to fetch users');
     }
+}
+
+export async function getUserSubscription(userId: string) {
+    const subscriptionRef = adminDb.collection('subscriptions').where('userId', '==', userId);
+    const subscriptionSnapshot = await subscriptionRef.get();
+    console.log("🚀 ~ getUserSubscription ~ subscriptionSnapshot:", subscriptionSnapshot)
+    if (subscriptionSnapshot.empty) {
+        return null;
+    }
+    return subscriptionSnapshot.docs[0].data();
 }
