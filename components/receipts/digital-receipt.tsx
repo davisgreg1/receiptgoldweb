@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { Receipt } from '@/types/receipt';
 import { Timestamp } from 'firebase/firestore';
-import { cn } from '@/lib/utils';
+import { cn, formatCategoryName } from '@/lib/utils';
 
 interface DigitalReceiptProps {
     receipt: Receipt;
@@ -44,7 +44,7 @@ export function DigitalReceipt({ receipt, className }: DigitalReceiptProps) {
                     )}
                 </div>
                 <h2 className="text-xl font-bold uppercase tracking-wider">{receipt.vendor}</h2>
-                <div className="text-xs text-gray-400 mt-1">{receipt.category || 'Uncategorized'}</div>
+                <div className="text-xs text-gray-400 mt-1">{formatCategoryName(receipt.category || 'Uncategorized')}</div>
             </div>
 
             <div className="border-b border-dashed border-gray-300 mb-4" />

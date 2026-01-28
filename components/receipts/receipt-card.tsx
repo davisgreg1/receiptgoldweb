@@ -59,7 +59,7 @@ export function ReceiptCard({ receipt, onClick }: ReceiptCardProps) {
             </CardContent>
             <CardFooter className="p-4 pt-0 flex justify-between items-center">
                 <div className="flex items-center font-bold text-lg text-primary">
-                    <span className="text-sm mr-0.5">{receipt.currency === 'USD' ? '$' : receipt.currency}</span>
+                    <span className="text-sm mr-0.5">{(receipt.currency || 'USD') === 'USD' ? '$' : (receipt.currency || 'USD')}</span>
                     {receipt.amount.toFixed(2)}
                 </div>
                 <span className={cn(

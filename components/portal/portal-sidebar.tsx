@@ -15,6 +15,7 @@ import {
 } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { isSuperAdmin } from '@/lib/auth-helpers';
+import { useTeamMembersCount } from '@/hooks/useTeamMembersCount';
 
 interface PortalSidebarProps {
     user: User;
@@ -28,6 +29,8 @@ export function PortalSidebar({ user }: PortalSidebarProps) {
             await signOut(auth);
         }
     };
+
+    const { count: teamCount } = useTeamMembersCount(user?.uid);
 
     const navItems = [
         {
@@ -44,16 +47,17 @@ export function PortalSidebar({ user }: PortalSidebarProps) {
             title: 'Team',
             href: '/portal/team',
             icon: Users,
+            hidden: !teamCount || teamCount <= 1,
         },
         // {
         //   title: 'Settings',
         //   href: '/portal/settings',
         //   icon: Settings,
         // },
-    ];
+    ].filter(item => !item.hidden);
 
     return (
-        <div className="hidden border-r bg-card md:block md:w-64 lg:w-72">
+        <div className="hidden border-r bg-card md:block md:w-64 lg:w-72 h-screen sticky top-0">
             <div className="flex h-full flex-col gap-2">
                 <div className="flex h-16 items-center border-b px-6">
                     <Link href="/" className="flex items-center gap-2 font-semibold">

@@ -10,14 +10,15 @@ import { useTeamMembersCount } from '@/hooks/useTeamMembersCount';
 import { RecentReceipts } from '@/components/dashboard/recent-receipts';
 import { ExpenseCategories } from '@/components/dashboard/expense-categories';
 
+import { Skeleton } from "@/components/ui/skeleton";
+
 export default function DashboardPage() {
     const user = auth?.currentUser;
-    console.log("🚀 ~ DashboardPage ~ user:", user)
-    const { data: subscription } = useSubscription(user?.uid);
+    // console.log("🚀 ~ DashboardPage ~ user:", user)
+    const { data: subscription, isLoading: isSubscriptionLoading } = useSubscription(user?.uid);
     const { count: receiptsCount, isLoading: isReceiptsLoading } = useReceiptsCount(user?.uid);
     const { spend: monthlySpend, isLoading: isSpendLoading } = useMonthlySpend(user?.uid);
     const { count: teamMembersCount, isLoading: isTeamLoading } = useTeamMembersCount(user?.uid);
-    console.log("🚀 ~ DashboardPage ~ data:", subscription)
     const tier = subscription?.tier;
     const status = subscription?.wasDeleted ? 'Cancelled' : 'Active';
 
@@ -53,7 +54,7 @@ export default function DashboardPage() {
                     </CardHeader>
                     <CardContent>
                         <div className="text-2xl font-bold">
-                            {isReceiptsLoading ? '...' : receiptsCount ?? 0}
+                            {isReceiptsLoading ? <Skeleton className="h-8 w-20" /> : receiptsCount ?? 0}
                         </div>
                     </CardContent>
                 </Card>
@@ -78,7 +79,7 @@ export default function DashboardPage() {
                     </CardHeader>
                     <CardContent>
                         <div className="text-2xl font-bold">
-                            {isSpendLoading ? '...' : monthlySpend !== null
+                            {isSpendLoading ? <Skeleton className="h-8 w-24" /> : monthlySpend !== null
                                 ? new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(monthlySpend)
                                 : '$0.00'
                             }
@@ -102,10 +103,19 @@ export default function DashboardPage() {
                         </svg>
                     </CardHeader>
                     <CardContent>
-                        <div className="text-2xl font-bold capitalize">{tier}</div>
-                        <p className={cn("text-xs text-muted-foreground", status === 'Cancelled' && "text-red-500")}>
-                            {status}
-                        </p>
+                        {isSubscriptionLoading ? (
+                            <div className="space-y-1">
+                                <Skeleton className="h-8 w-24" />
+                                <Skeleton className="h-3 w-12" />
+                            </div>
+                        ) : (
+                            <>
+                                <div className="text-2xl font-bold capitalize">{tier}</div>
+                                <p className={cn("text-xs text-muted-foreground", status === 'Cancelled' && "text-red-500")}>
+                                    {status}
+                                </p>
+                            </>
+                        )}
                     </CardContent>
                 </Card>
                 <Card>
@@ -130,7 +140,7 @@ export default function DashboardPage() {
                     </CardHeader>
                     <CardContent>
                         <div className="text-2xl font-bold">
-                            {isTeamLoading ? '...' : teamMembersCount ?? 1}
+                            {isTeamLoading ? <Skeleton className="h-8 w-12" /> : teamMembersCount ?? 1}
                         </div>
                         <p className="text-xs text-muted-foreground">
                             Includes yourself

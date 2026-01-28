@@ -1,21 +1,22 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { auth } from '@/lib/firebase-client';
 import { useAllReceipts } from '@/hooks/useAllReceipts';
 import { Receipt } from '@/types/receipt';
 import { Card, CardContent } from '@/components/ui/card';
 import { ReceiptCard } from '@/components/receipts/receipt-card';
-import { ReceiptImageModal } from '@/components/dashboard/receipt-image-modal';
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function ReceiptsPage() {
     const user = auth?.currentUser;
+    const router = useRouter();
     const { receipts, isLoading } = useAllReceipts(user?.uid);
-    const [selectedReceipt, setSelectedReceipt] = useState<Receipt | null>(null);
     const [searchQuery, setSearchQuery] = useState('');
 
     const handleReceiptClick = (receipt: Receipt) => {
-        setSelectedReceipt(receipt);
+        router.push(`/portal/receipts/${receipt.receiptId}`);
     };
 
     const filteredReceipts = receipts.filter(receipt =>
@@ -24,7 +25,27 @@ export default function ReceiptsPage() {
     );
 
     if (isLoading) {
-        return <div className="p-8">Loading receipts...</div>;
+        return (
+            <div className="space-y-6">
+                <div className="flex items-center justify-between">
+                    <div>
+                        <h1 className="text-3xl font-bold tracking-tight">Receipts</h1>
+                        <p className="text-muted-foreground">Manage and view your receipts.</p>
+                    </div>
+                </div>
+                <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                    {Array.from({ length: 8 }).map((_, i) => (
+                        <div key={i} className="flex flex-col space-y-3">
+                            <Skeleton className="h-[300px] w-full rounded-xl" />
+                            <div className="space-y-2">
+                                <Skeleton className="h-4 w-[250px]" />
+                                <Skeleton className="h-4 w-[200px]" />
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        );
     }
 
     return (
@@ -82,12 +103,6 @@ export default function ReceiptsPage() {
                     {searchQuery ? 'No receipts match your search.' : 'No receipts found.'}
                 </div>
             )}
-
-            <ReceiptImageModal
-                isOpen={!!selectedReceipt}
-                onClose={() => setSelectedReceipt(null)}
-                receipt={selectedReceipt}
-            />
         </div>
     );
 }

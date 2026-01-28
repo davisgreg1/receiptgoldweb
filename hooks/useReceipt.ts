@@ -34,5 +34,10 @@ export function useReceipt(receiptId: string, userId?: string) {
         retry: false,
     });
 
-    return { receipt, isLoading, error };
+    // Combine loading states: if permissions are loading or we don't have a user yet (waiting for auth),
+    // or the query itself is loading, we are "loading".
+    // Since this is a protected route, !userId implies auth is initializing.
+    const isTotalLoading = isLoading || permissionsLoading || !userId;
+
+    return { receipt, isLoading: isTotalLoading, error };
 }

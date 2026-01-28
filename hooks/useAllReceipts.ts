@@ -38,5 +38,7 @@ export function useAllReceipts(userId?: string) {
         staleTime: 5 * 60 * 1000, // 5 minutes
     });
 
-    return { receipts, isLoading, error };
+    const isTotalLoading = isLoading || permissionsLoading || !userId;
+
+    return { receipts, isLoading: isTotalLoading, error };
 }
