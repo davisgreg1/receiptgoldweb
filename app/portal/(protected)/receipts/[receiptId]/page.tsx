@@ -6,6 +6,7 @@ import { auth } from '@/lib/firebase-client';
 import { DigitalReceipt } from '@/components/receipts/digital-receipt';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, Trash2, Edit, Expand, Share2, Check } from 'lucide-react';
+import { EditReceiptDialog } from "@/components/receipts/edit-receipt-dialog";
 import {
     Dialog,
     DialogContent,
@@ -38,6 +39,7 @@ export default function ReceiptDetailsPage() {
     const { receipt, isLoading, error } = useReceipt(receiptId, user?.uid);
     const [isDeleting, setIsDeleting] = useState(false);
     const [isCopied, setIsCopied] = useState(false);
+    const [isEditing, setIsEditing] = useState(false);
     const queryClient = useQueryClient();
 
     const handleDelete = async () => {
@@ -190,9 +192,20 @@ export default function ReceiptDetailsPage() {
                         </DialogContent>
                     </Dialog>
 
-                    <Button variant="outline" disabled className="transition-all hover:text-primary text-muted-foreground">
+                    <Button
+                        variant="outline"
+                        className="transition-all hover:text-primary text-muted-foreground"
+                        onClick={() => setIsEditing(true)}
+                    >
                         <Edit className="mr-2 h-4 w-4" /> Edit
                     </Button>
+
+                    <EditReceiptDialog
+                        receipt={receipt}
+                        open={isEditing}
+                        onOpenChange={setIsEditing}
+                    />
+
                     <AlertDialog>
                         {/* ... existing alert dialog trigger/content */}
                         <AlertDialogTrigger asChild>
@@ -266,14 +279,7 @@ export default function ReceiptDetailsPage() {
                             </div>
                         </div>
 
-                        {receipt.extractedData && (
-                            <div className="mt-6 border-t pt-4">
-                                <h3 className="font-semibold mb-2">Extracted Data</h3>
-                                <pre className="text-xs bg-muted p-4 rounded overflow-auto max-h-40">
-                                    {JSON.stringify(receipt.extractedData, null, 2)}
-                                </pre>
-                            </div>
-                        )}
+
                     </div>
                 </div>
             </div>
