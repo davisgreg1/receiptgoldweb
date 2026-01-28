@@ -10,7 +10,25 @@ import DownloadCTA from './components/home/DownloadCTA';
 import FloatingElements from './components/home/FloatingElements';
 import Footer from './components/layout/Footer';
 
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from '@/lib/firebase-client';
+
 export default function Home() {
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!auth) return;
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        router.push('/portal/dashboard');
+      }
+    });
+
+    return () => unsubscribe();
+  }, [router]);
+
   return (
     <div
       className="min-h-screen transition-colors duration-300 bg-background-primary text-text-primary"
