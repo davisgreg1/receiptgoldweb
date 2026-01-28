@@ -19,6 +19,8 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { isSuperAdmin } from '@/lib/auth-helpers';
 import { useTeamMembersCount } from '@/hooks/useTeamMembersCount';
+import { useTheme } from '@/app/theme/theme';
+import { FaMoon, FaSun } from 'react-icons/fa';
 
 interface PortalSidebarProps {
     user: User;
@@ -27,6 +29,7 @@ interface PortalSidebarProps {
 export function PortalSidebar({ user }: PortalSidebarProps) {
     const pathname = usePathname();
     const [isCollapsed, setIsCollapsed] = useState(false);
+    const { themeMode, toggleTheme } = useTheme();
 
     const handleSignOut = async () => {
         if (auth) {
@@ -172,6 +175,19 @@ export function PortalSidebar({ user }: PortalSidebarProps) {
                     >
                         <LogOut className="h-4 w-4" />
                         {!isCollapsed && <span>Sign out</span>}
+                    </Button>
+
+                    <Button
+                        variant="ghost"
+                        className={cn(
+                            "text-muted-foreground transition-all hover:text-primary w-full gap-2 mt-2",
+                            isCollapsed ? "justify-center px-2" : "justify-start"
+                        )}
+                        onClick={toggleTheme}
+                        title={isCollapsed ? "Toggle theme" : undefined}
+                    >
+                        {themeMode === 'dark' ? <FaSun className="h-4 w-4" /> : <FaMoon className="h-4 w-4" />}
+                        {!isCollapsed && <span>{themeMode === 'dark' ? 'Light Mode' : 'Dark Mode'}</span>}
                     </Button>
                 </div>
             </div>

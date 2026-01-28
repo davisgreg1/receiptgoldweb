@@ -9,6 +9,7 @@ import { cn } from '@/lib/utils';
 import { useTeamMembersCount } from '@/hooks/useTeamMembersCount';
 import { RecentReceipts } from '@/components/dashboard/recent-receipts';
 import { ExpenseCategories } from '@/components/dashboard/expense-categories';
+import { SpendingOverviewChart } from '@/components/dashboard/spending-overview-chart';
 
 import { Skeleton } from "@/components/ui/skeleton";
 
@@ -150,8 +151,12 @@ export default function DashboardPage() {
             </div>
 
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-                <RecentReceipts />
+                <SpendingOverviewChart />
                 <ExpenseCategories />
+            </div>
+
+            <div className="grid gap-4 md:grid-cols-1">
+                <RecentReceipts />
             </div>
         </div>
     );

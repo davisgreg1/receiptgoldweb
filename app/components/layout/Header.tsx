@@ -72,7 +72,7 @@ export default function Header() {
                                     // Portal Sidebar / Mobile Menu Style
                                     <div className="flex h-full flex-col gap-2 -mt-6">
                                         <div className="flex h-16 items-center border-b px-6">
-                                            <Link href="/" className="flex items-center gap-2 font-semibold">
+                                            <Link href="/portal/dashboard" className="flex items-center gap-2 font-semibold">
                                                 <span className="text-xl font-bold text-primary">ReceiptGold</span>
                                                 <span className="rounded-md bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">
                                                     Admin
@@ -144,7 +144,7 @@ export default function Header() {
                             </SheetContent>
                         </Sheet>
 
-                        <Link href="/" className="flex items-center space-x-2">
+                        <Link href={user ? "/portal/dashboard" : "/"} className="flex items-center space-x-2">
                             <div className="w-8 h-8 sm:w-10 sm:h-10 relative">
                                 <Image
                                     src="/images/logo.jpg"

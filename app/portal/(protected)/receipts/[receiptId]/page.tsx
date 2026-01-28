@@ -12,6 +12,8 @@ import {
     DialogContent,
     DialogTrigger,
     DialogClose,
+    DialogTitle,
+    DialogDescription,
 } from "@/components/ui/dialog";
 import { db } from '@/lib/firebase-client';
 import { deleteDoc, doc, Timestamp } from 'firebase/firestore';
@@ -40,6 +42,7 @@ export default function ReceiptDetailsPage() {
     const [isDeleting, setIsDeleting] = useState(false);
     const [isCopied, setIsCopied] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
+    const [isZoomed, setIsZoomed] = useState(false);
     const queryClient = useQueryClient();
 
     const handleDelete = async () => {
@@ -97,7 +100,7 @@ export default function ReceiptDetailsPage() {
                     </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                     {/* Visual Representation Skeleton */}
                     <div className="flex justify-center bg-muted/10 p-8 rounded-lg border border-dashed border-muted-foreground/20 h-[500px]">
                         <Skeleton className="h-full w-full max-w-[350px]" />
@@ -151,29 +154,36 @@ export default function ReceiptDetailsPage() {
         : new Date(receipt.date);
 
     return (
-        <div className="container max-w-5xl py-8 space-y-6">
-            <div className="flex items-center justify-between">
+        <div className="container max-w-5xl py-4 md:py-8 space-y-6">
+            <div className="flex flex-col xl:flex-row items-start xl:items-center justify-between gap-4">
                 <Button variant="ghost" onClick={() => router.back()}>
                     <ArrowLeft className="mr-2 h-4 w-4" /> Back
                 </Button>
-                <div className="flex gap-2">
-                    <Button variant="outline" onClick={handleShare} className="transition-all hover:text-primary text-muted-foreground">
+                <div className="grid grid-cols-2 xl:flex gap-2 w-full xl:w-auto">
+                    <Button variant="outline" onClick={handleShare} className="transition-all hover:text-primary text-muted-foreground w-full xl:w-auto">
                         {isCopied ? <Check className="mr-2 h-4 w-4 text-green-600" /> : <Share2 className="mr-2 h-4 w-4" />}
                         {isCopied ? "Copied" : "Share"}
                     </Button>
 
-                    <Dialog>
-                        <DialogTrigger asChild>
-                            <Button variant="outline" className="transition-all hover:text-primary text-muted-foreground">
-                                <Expand className="mr-2 h-4 w-4" /> Zoom
-                            </Button>
-                        </DialogTrigger>
+                    <Button
+                        variant="outline"
+                        className="transition-all hover:text-primary text-muted-foreground w-full xl:w-auto"
+                        onClick={() => setIsZoomed(true)}
+                    >
+                        <Expand className="mr-2 h-4 w-4" /> Zoom
+                    </Button>
+
+                    <Dialog open={isZoomed} onOpenChange={setIsZoomed}>
                         <DialogContent className="max-w-4xl w-full h-[90vh] p-0 overflow-hidden bg-transparent border-0 shadow-none flex items-center justify-center [&>button:last-child]:hidden">
+                            <DialogTitle className="sr-only">Receipt Zoom View</DialogTitle>
+                            <DialogDescription className="sr-only">
+                                A zoomed-in view of the receipt image.
+                            </DialogDescription>
                             <div className="relative w-full h-full flex items-center justify-center pointer-events-none">
                                 <div className="pointer-events-auto relative max-h-full max-w-full overflow-auto rounded-lg bg-background p-4 shadow-lg">
                                     <DialogClose className="absolute right-4 top-4 z-50 rounded-full bg-white/80 p-2 hover:bg-white transition-colors">
                                         <span className="sr-only">Close</span>
-                                        <div className="h-4 w-4">✕</div> {/* Simple close icon or verify visual */}
+                                        <div className="flex items-center justify-center h-4 w-4 transition-all hover:text-primary text-muted-foreground">✕</div> {/* Simple close icon or verify visual */}
                                     </DialogClose>
                                     {hasImage ? (
                                         /* eslint-disable-next-line @next/next/no-img-element */
@@ -194,7 +204,7 @@ export default function ReceiptDetailsPage() {
 
                     <Button
                         variant="outline"
-                        className="transition-all hover:text-primary text-muted-foreground"
+                        className="transition-all hover:text-primary text-muted-foreground w-full xl:w-auto"
                         onClick={() => setIsEditing(true)}
                     >
                         <Edit className="mr-2 h-4 w-4" /> Edit
@@ -209,7 +219,7 @@ export default function ReceiptDetailsPage() {
                     <AlertDialog>
                         {/* ... existing alert dialog trigger/content */}
                         <AlertDialogTrigger asChild>
-                            <Button variant="destructive" disabled={isDeleting}>
+                            <Button variant="destructive" disabled={isDeleting} className="w-full xl:w-auto">
                                 <Trash2 className="mr-2 h-4 w-4" /> Delete
                             </Button>
                         </AlertDialogTrigger>
@@ -231,9 +241,12 @@ export default function ReceiptDetailsPage() {
                 </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 {/* Visual Representation */}
-                <div className="flex justify-center bg-muted/10 p-8 rounded-lg border border-dashed border-muted-foreground/20">
+                <div
+                    className="flex justify-center bg-muted/10 p-4 sm:p-8 rounded-lg border border-dashed border-muted-foreground/20 cursor-pointer hover:bg-muted/20 transition-colors"
+                    onClick={() => setIsZoomed(true)}
+                >
                     {hasImage ? (
                         /* eslint-disable-next-line @next/next/no-img-element */
                         <img

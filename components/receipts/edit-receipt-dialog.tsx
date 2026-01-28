@@ -71,7 +71,7 @@ export function EditReceiptDialog({
     const [isSaving, setIsSaving] = useState(false);
 
     // Helper to format Date/Timestamp to "YYYY-MM-DDTHH:mm" for datetime-local input
-    const formatDateForInput = (dateVal: any) => {
+    const formatDateForInput = (dateVal: Timestamp | Date | string | number) => {
         try {
             const d = dateVal instanceof Timestamp ? dateVal.toDate() : new Date(dateVal);
             return format(d, "yyyy-MM-dd'T'HH:mm");

@@ -26,7 +26,7 @@ export function DigitalReceipt({ receipt, className }: DigitalReceiptProps) {
     const formattedTime = dateObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
     return (
-        <div className={cn("bg-white text-black font-mono p-6 pt-10 shadow-sm border border-gray-200 w-full max-w-[350px] mx-auto relative mt-8", className)}>
+        <div className={cn("bg-white text-black font-mono p-6 pt-10 shadow-sm border border-gray-200 w-full max-w-[350px] mx-auto relative mt-8 shrink-0 sm:shrink", className)}>
             <div className="text-center mb-6">
                 <div className="h-16 w-16 bg-white rounded-full mx-auto mb-2 flex items-center justify-center shadow-sm border overflow-hidden relative -mt-14 z-10">
                     {!imageError ? (

@@ -11,6 +11,8 @@ import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import Link from 'next/link';
 import { isSuperAdmin } from '@/lib/auth-helpers';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { useTheme } from '@/app/theme/theme';
+import { FaMoon, FaSun } from 'react-icons/fa';
 
 export default function ProtectedLayout({
     children,
@@ -20,6 +22,20 @@ export default function ProtectedLayout({
     const [user, setUser] = useState<User | null>(null);
     const [loading, setLoading] = useState(true);
     const router = useRouter();
+
+    function ThemeToggle() {
+        const { themeMode, toggleTheme } = useTheme();
+        return (
+            <Button
+                variant="ghost"
+                size="icon"
+                onClick={toggleTheme}
+                className="text-muted-foreground hover:text-primary transition-colors"
+            >
+                {themeMode === 'dark' ? <FaSun className="h-5 w-5" /> : <FaMoon className="h-5 w-5" />}
+            </Button>
+        );
+    }
 
     useEffect(() => {
         if (!auth) {
@@ -140,6 +156,9 @@ export default function ProtectedLayout({
                         </SheetContent>
                     </Sheet>
                     <span className="ml-4 text-lg font-semibold">Dashboard</span>
+                    <div className="ml-auto">
+                        <ThemeToggle />
+                    </div>
                 </header>
                 <main className="flex-1 p-6 md:p-8 pt-6">
                     {children}
