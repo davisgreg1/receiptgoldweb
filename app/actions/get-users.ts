@@ -100,12 +100,57 @@ export async function getUsers({ idToken, page, pageSize, search, status, provid
     }
 }
 
+// ... existing code ...
+export async function getUserPlaidItems(userId: string) {
+    const plaidItemsRef = adminDb.collection('plaid_items').where('userId', '==', userId);
+    const plaidItemsSnapshot = await plaidItemsRef.get();
+
+    if (plaidItemsSnapshot.empty) {
+        return [];
+    }
+
+    return plaidItemsSnapshot.docs.map(doc => serializeFirestoreData(doc.data()));
+}
+
 export async function getUserSubscription(userId: string) {
     const subscriptionRef = adminDb.collection('subscriptions').where('userId', '==', userId);
     const subscriptionSnapshot = await subscriptionRef.get();
-    console.log("🚀 ~ getUserSubscription ~ subscriptionSnapshot:", subscriptionSnapshot)
     if (subscriptionSnapshot.empty) {
         return null;
     }
-    return subscriptionSnapshot.docs[0].data();
+    return serializeFirestoreData(subscriptionSnapshot.docs[0].data());
+}
+
+function serializeFirestoreData(data: any): any {
+    if (data === null || data === undefined) {
+        return data;
+    }
+
+    if (typeof data !== 'object') {
+        return data;
+    }
+
+    // Handle Firestore Timestamp (check for toDate method or _seconds/_nanoseconds props)
+    // We check for _seconds to handle both SDK objects and potentially raw objects
+    if (typeof data.toDate === 'function') {
+        return data.toDate().toISOString();
+    }
+
+    if ('_seconds' in data && '_nanoseconds' in data) {
+        return new Date(data._seconds * 1000).toISOString();
+    }
+
+    // Handle Arrays
+    if (Array.isArray(data)) {
+        return data.map(item => serializeFirestoreData(item));
+    }
+
+    // Handle Objects
+    const serialized: any = {};
+    for (const key in data) {
+        if (Object.prototype.hasOwnProperty.call(data, key)) {
+            serialized[key] = serializeFirestoreData(data[key]);
+        }
+    }
+    return serialized;
 }

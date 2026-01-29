@@ -23,7 +23,7 @@ export function useTeamMembersCount(userId?: string) {
 
             const snapshot = await getCountFromServer(q);
 
-            return snapshot.data().count + 1; // Include account holder
+            return snapshot.data().count; // Exclude account holder
         },
         enabled: !!userId && !permissionsLoading,
         staleTime: 5 * 60 * 1000,

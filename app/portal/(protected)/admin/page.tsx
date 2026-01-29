@@ -111,7 +111,7 @@ export default function AdminDashboardPage() {
     return (
         <div className="space-y-6">
             <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-                <h1 className="text-3xl font-bold tracking-tight">User Management</h1>
+                <h1 className="text-3xl font-bold tracking-tight text-foreground">User Management</h1>
                 <Button variant="outline" className="text-text-primary hidden sm:flex">Export Data</Button>
             </div>
 
@@ -192,7 +192,11 @@ export default function AdminDashboardPage() {
                                     </TableRow>
                                 ) : (
                                     users.map((user) => (
-                                        <TableRow key={user.uid}>
+                                        <TableRow
+                                            key={user.uid}
+                                            className="cursor-pointer hover:bg-muted/50 transition-colors"
+                                            onClick={() => router.push(`/portal/admin/${user.uid}`)}
+                                        >
                                             <TableCell>
                                                 <div className="h-10 w-10 rounded-full bg-muted flex items-center justify-center overflow-hidden">
                                                     {user.photoURL ? (
