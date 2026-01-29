@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { onAuthStateChanged, User, signOut } from 'firebase/auth';
 import { auth } from '@/lib/firebase-client';
 import { PortalSidebar } from '@/components/portal/portal-sidebar'; // Will create this next
-import { Loader2, Menu, LayoutDashboard, Receipt, Users, LogOut, ShieldAlert } from 'lucide-react';
+import { Loader2, Menu, LayoutDashboard, Receipt, Users, LogOut, ShieldAlert, Settings } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import Link from 'next/link';
@@ -13,6 +13,7 @@ import { isSuperAdmin } from '@/lib/auth-helpers';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useTheme } from '@/app/theme/theme';
 import { FaMoon, FaSun } from 'react-icons/fa';
+import Footer from '@/app/components/layout/Footer';
 
 export default function ProtectedLayout({
     children,
@@ -69,7 +70,7 @@ export default function ProtectedLayout({
     }
 
     return (
-        <div className="flex min-h-screen bg-muted/20">
+        <div className="flex min-h-screen bg-muted/20 dark:bg-background">
             <PortalSidebar user={user} />
             <div className="flex-1 flex flex-col">
                 {/* Mobile Header */}
@@ -114,6 +115,13 @@ export default function ProtectedLayout({
                                         >
                                             <Users className="h-4 w-4" />
                                             Team
+                                        </Link>
+                                        <Link
+                                            href="/portal/settings"
+                                            className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
+                                        >
+                                            <Settings className="h-4 w-4" />
+                                            Settings
                                         </Link>
 
                                         {isSuperAdmin(user.email) && (
@@ -163,6 +171,7 @@ export default function ProtectedLayout({
                 <main className="flex-1 p-6 md:p-8 pt-6">
                     {children}
                 </main>
+                <Footer variant="portal" />
             </div>
         </div>
     );

@@ -15,6 +15,7 @@ import {
     ShieldAlert,
     ChevronLeft,
     ChevronRight,
+    Settings,
 } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { isSuperAdmin } from '@/lib/auth-helpers';
@@ -56,11 +57,11 @@ export function PortalSidebar({ user }: PortalSidebarProps) {
             icon: Users,
             hidden: !teamCount || teamCount <= 1,
         },
-        // {
-        //   title: 'Settings',
-        //   href: '/portal/settings',
-        //   icon: Settings,
-        // },
+        {
+            title: 'Settings',
+            href: '/portal/settings',
+            icon: Settings,
+        },
     ].filter(item => !item.hidden);
 
     return (
@@ -147,7 +148,7 @@ export function PortalSidebar({ user }: PortalSidebarProps) {
                                 <AvatarFallback>{user.email?.charAt(0).toUpperCase()}</AvatarFallback>
                             </Avatar>
                             <div className="flex flex-col overflow-hidden">
-                                <span className="truncate text-sm font-medium leading-none">
+                                <span className="truncate text-sm font-medium leading-none text-foreground">
                                     {user.displayName || 'User'}
                                 </span>
                                 <span className="truncate text-xs text-muted-foreground mt-1">

@@ -3,6 +3,7 @@ import { Analytics } from "@vercel/analytics/next"
 import { Inter, Plus_Jakarta_Sans, Space_Grotesk } from "next/font/google";
 import { ThemeProvider } from "./theme/theme";
 import { ReactQueryProvider } from "@/components/providers/query-provider";
+import { Toaster } from "@/components/ui/toaster";
 import "./globals.css";
 
 const inter = Inter({
@@ -61,6 +62,7 @@ export default function RootLayout({
           <ReactQueryProvider>
             {children}
             <Analytics />
+            <Toaster />
           </ReactQueryProvider>
         </ThemeProvider>
       </body>

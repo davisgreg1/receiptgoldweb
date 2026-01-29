@@ -1,6 +1,8 @@
 'use client';
 
+import { useState } from 'react';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
+import { Skeleton } from '@/components/ui/skeleton';
 import { Receipt } from '@/types/receipt';
 import { Timestamp } from 'firebase/firestore';
 import { CalendarIcon } from 'lucide-react';
@@ -17,6 +19,8 @@ export function ReceiptCard({ receipt, onClick }: ReceiptCardProps) {
         ? receipt.date.toDate()
         : new Date(receipt.date);
 
+    const [isImageLoading, setIsImageLoading] = useState(true);
+
     const hasImage = receipt.images && receipt.images.length > 0;
     const imageUrl = hasImage ? receipt.images[0].url : null;
 
@@ -30,12 +34,21 @@ export function ReceiptCard({ receipt, onClick }: ReceiptCardProps) {
         >
             <div className="aspect-[3/4] w-full overflow-hidden bg-muted/20 relative">
                 {imageUrl ? (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img
-                        src={imageUrl}
-                        alt={receipt.vendor}
-                        className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                    />
+                    <>
+                        {isImageLoading && (
+                            <Skeleton className="absolute inset-0 z-10" />
+                        )}
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                            src={imageUrl}
+                            alt={receipt.vendor}
+                            className={cn(
+                                "h-full w-full object-cover transition-transform duration-300 group-hover:scale-105",
+                                isImageLoading ? "opacity-0" : "opacity-100"
+                            )}
+                            onLoad={() => setIsImageLoading(false)}
+                        />
+                    </>
                 ) : (
                     <div className="h-full w-full flex items-start justify-center bg-gray-50 overflow-hidden pt-6">
                         <div className="scale-[0.60] origin-top w-[300px]">

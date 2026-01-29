@@ -156,7 +156,7 @@ export default function ReceiptDetailsPage() {
     return (
         <div className="container max-w-5xl py-4 md:py-8 space-y-6">
             <div className="flex flex-col xl:flex-row items-start xl:items-center justify-between gap-4">
-                <Button variant="ghost" onClick={() => router.back()}>
+                <Button variant="ghost" onClick={() => router.back()} className="text-foreground hover:text-primary transition-colors">
                     <ArrowLeft className="mr-2 h-4 w-4" /> Back
                 </Button>
                 <div className="grid grid-cols-2 xl:flex gap-2 w-full xl:w-auto">
@@ -262,7 +262,7 @@ export default function ReceiptDetailsPage() {
                 {/* Details */}
                 <div className="space-y-6">
                     <div>
-                        <h1 className="text-3xl font-bold">{receipt.vendor}</h1>
+                        <h1 className="text-3xl font-bold text-foreground">{receipt.vendor}</h1>
                         <p className="text-muted-foreground">
                             {new Intl.NumberFormat('en-US', { style: 'currency', currency: receipt.currency || 'USD' }).format(receipt.amount)}
                         </p>
@@ -272,23 +272,23 @@ export default function ReceiptDetailsPage() {
                         <div className="grid grid-cols-2 gap-4 border-t pt-4">
                             <div>
                                 <p className="text-sm font-medium text-muted-foreground">Date</p>
-                                <p>{dateObj.toLocaleDateString()}</p>
+                                <p className="text-foreground">{dateObj.toLocaleDateString()}</p>
                             </div>
                             <div>
                                 <p className="text-sm font-medium text-muted-foreground">Time</p>
-                                <p>{dateObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
+                                <p className="text-foreground">{dateObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
                             </div>
                             <div>
                                 <p className="text-sm font-medium text-muted-foreground">Category</p>
-                                <p className="capitalize">{formatCategoryName(receipt.category || 'Uncategorized')}</p>
+                                <p className="text-foreground capitalize">{formatCategoryName(receipt.category || 'Uncategorized')}</p>
                             </div>
                             <div>
                                 <p className="text-sm font-medium text-muted-foreground">Status</p>
-                                <p className="capitalize">{receipt.status}</p>
+                                <p className="text-foreground capitalize">{receipt.status}</p>
                             </div>
                             <div>
                                 <p className="text-sm font-medium text-muted-foreground">Description</p>
-                                <p>{receipt.description || '-'}</p>
+                                <p className="text-foreground">{receipt.description || '-'}</p>
                             </div>
                         </div>
 

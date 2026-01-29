@@ -3,13 +3,17 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 
-export default function Footer() {
+interface FooterProps {
+    variant?: 'public' | 'portal';
+}
+
+export default function Footer({ variant = 'public' }: FooterProps) {
     return (
         <motion.footer
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 2.8 }}
-            className="relative z-10 mt-20 sm:mt-24 border-t border-border-primary"
+            className="relative z-10 mt-20 sm:mt-24 border-t border-border dark:bg-background"
         >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
                 <div className="grid md:grid-cols-4 gap-8 mb-8">
@@ -38,24 +42,43 @@ export default function Footer() {
                         </div>
                     </div>
 
-                    {/* Product Column */}
+                    {/* Navigation Column */}
                     <div>
                         <h4 className="font-semibold mb-4 text-sm uppercase tracking-wider text-text-primary">
-                            Product
+                            {variant === 'public' ? 'Product' : 'Navigation'}
                         </h4>
                         <ul className="space-y-2 text-sm text-text-secondary">
-                            <li>
-                                <a href="#features" className="hover:opacity-70 transition-opacity">Features</a>
-                            </li>
-                            <li>
-                                <a href="#how-it-works" className="hover:opacity-70 transition-opacity">How It Works</a>
-                            </li>
-                            <li>
-                                <a href="#download" className="hover:opacity-70 transition-opacity">Download</a>
-                            </li>
-                            <li>
-                                <a href="#" className="hover:opacity-70 transition-opacity">Pricing</a>
-                            </li>
+                            {variant === 'public' ? (
+                                <>
+                                    <li>
+                                        <a href="#features" className="hover:opacity-70 transition-opacity">Features</a>
+                                    </li>
+                                    <li>
+                                        <a href="#how-it-works" className="hover:opacity-70 transition-opacity">How It Works</a>
+                                    </li>
+                                    <li>
+                                        <a href="#download" className="hover:opacity-70 transition-opacity">Download</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" className="hover:opacity-70 transition-opacity">Pricing</a>
+                                    </li>
+                                </>
+                            ) : (
+                                <>
+                                    <li>
+                                        <Link href="/portal/dashboard" className="hover:opacity-70 transition-opacity">Dashboard</Link>
+                                    </li>
+                                    <li>
+                                        <Link href="/portal/receipts" className="hover:opacity-70 transition-opacity">Receipts</Link>
+                                    </li>
+                                    <li>
+                                        <Link href="/portal/team" className="hover:opacity-70 transition-opacity">Team</Link>
+                                    </li>
+                                    <li>
+                                        <Link href="/portal/settings" className="hover:opacity-70 transition-opacity">Settings</Link>
+                                    </li>
+                                </>
+                            )}
                         </ul>
                     </div>
 

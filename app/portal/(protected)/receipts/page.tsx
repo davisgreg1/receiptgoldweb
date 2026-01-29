@@ -1,9 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { auth } from '@/lib/firebase-client';
 import { useAllReceipts } from '@/hooks/useAllReceipts';
+import { useInView } from 'react-intersection-observer';
 import { Receipt } from '@/types/receipt';
 import { Card, CardContent } from '@/components/ui/card';
 import { ReceiptCard } from '@/components/receipts/receipt-card';
@@ -12,13 +13,29 @@ import { Skeleton } from "@/components/ui/skeleton";
 export default function ReceiptsPage() {
     const user = auth?.currentUser;
     const router = useRouter();
-    const { receipts, isLoading } = useAllReceipts(user?.uid);
+    const {
+        receipts,
+        isLoading,
+        fetchNextPage,
+        hasNextPage,
+        isFetchingNextPage
+    } = useAllReceipts(user?.uid);
     const [searchQuery, setSearchQuery] = useState('');
+    const { ref, inView } = useInView();
+
+    useEffect(() => {
+        if (inView && hasNextPage) {
+            fetchNextPage();
+        }
+    }, [inView, hasNextPage, fetchNextPage]);
 
     const handleReceiptClick = (receipt: Receipt) => {
         router.push(`/portal/receipts/${receipt.receiptId}`);
     };
 
+    // Note: Client-side filtering on the infinite list
+    // Ideally, search should be a server-side query if the dataset is massive,
+    // but for now we filter the loaded pages.
     const filteredReceipts = receipts.filter(receipt =>
         receipt.vendor.toLowerCase().includes(searchQuery.toLowerCase()) ||
         (receipt.amount && receipt.amount.toString().includes(searchQuery))
@@ -29,7 +46,7 @@ export default function ReceiptsPage() {
             <div className="space-y-6">
                 <div className="flex items-center justify-between">
                     <div>
-                        <h1 className="text-3xl font-bold tracking-tight">Receipts</h1>
+                        <h1 className="text-3xl font-bold tracking-tight text-foreground">Receipts</h1>
                         <p className="text-muted-foreground">Manage and view your receipts.</p>
                     </div>
                 </div>
@@ -52,7 +69,7 @@ export default function ReceiptsPage() {
         <div className="space-y-6">
             <div className="flex items-center justify-between">
                 <div>
-                    <h1 className="text-3xl font-bold tracking-tight">Receipts</h1>
+                    <h1 className="text-3xl font-bold tracking-tight text-foreground">Receipts</h1>
                     <p className="text-muted-foreground">Manage and view your receipts.</p>
                 </div>
             </div>
@@ -96,9 +113,23 @@ export default function ReceiptsPage() {
                         onClick={handleReceiptClick}
                     />
                 ))}
+
+                {/* Loading indicator skeletons when fetching next page */}
+                {isFetchingNextPage && Array.from({ length: 4 }).map((_, i) => (
+                    <div key={`loading-${i}`} className="flex flex-col space-y-3">
+                        <Skeleton className="h-[300px] w-full rounded-xl" />
+                        <div className="space-y-2">
+                            <Skeleton className="h-4 w-[250px]" />
+                            <Skeleton className="h-4 w-[200px]" />
+                        </div>
+                    </div>
+                ))}
             </div>
 
-            {filteredReceipts.length === 0 && (
+            {/* Intersection Observer Trigger */}
+            <div ref={ref} className="h-10 w-full" />
+
+            {filteredReceipts.length === 0 && !isLoading && (
                 <div className="text-center py-12 text-muted-foreground">
                     {searchQuery ? 'No receipts match your search.' : 'No receipts found.'}
                 </div>
